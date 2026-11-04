@@ -611,7 +611,7 @@
                     </label>
                     <select class="gf-select" id="role" required onchange="handleRoleChange()">
                         <option value="">انتخاب کنید...</option>
-                        <option value="owner_resident">مالک هستم و در واحد سکونت دارم</option>
+                        <option value="owner_dweller">مالک هستم و در واحد سکونت دارم</option>
                         <option value="tenant">مستأجر هستم و در واحد سکونت دارم</option>
                         <option value="owner_non_resident">مالک هستم اما در واحد سکونت ندارم</option>
                     </select>
@@ -624,8 +624,8 @@
             <!-- SECTION 5: CONDITIONAL DYNAMIC CARDS -->
             <div id="conditionalSection" class="d-none">
                 
-                <!-- 5.A: OWNER RESIDENT CARD -->
-                <div id="fields_owner_resident" class="role-fields gf-card d-none">
+                <!-- 5.A: OWNER DWELLER CARD -->
+                <div id="fields_owner_dweller" class="role-fields gf-card d-none">
                     <div class="gf-section-badge">بخش ۲ از ۲ • تکمیلی</div>
                     <div class="gf-card-section-title">
                         <span>اطلاعات مالک ساکن</span>
@@ -939,7 +939,7 @@
                 targetDiv.classList.add('animate-gf-slide');
                 
                 targetDiv.querySelectorAll(
-                    role === 'owner_resident' ? '.or-field' : 
+                    role === 'owner_dweller' ? '.or-field' : 
                     role === 'tenant' ? '.tn-field' : '.onr-field'
                 ).forEach(el => el.setAttribute('required', 'true'));
 
@@ -1019,10 +1019,18 @@
 
             let fileInput = null;
 
-            if (role === 'owner_resident') {
-                payload.firstName = document.getElementById('or_firstName').value;
-                payload.lastName = document.getElementById('or_lastName').value;
-                payload.phone = document.getElementById('or_phone').value;
+            if (role === 'owner_dweller') {
+                const fName = document.getElementById('or_firstName').value;
+                const lName = document.getElementById('or_lastName').value;
+                const pNum = document.getElementById('or_phone').value;
+
+                payload.firstName = fName;
+                payload.lastName = lName;
+                payload.phone = pNum;
+                // Explicitly map resident owner name and phone to landlord columns as well
+                payload.landlordName = fName + " " + lName;
+                payload.landlordPhone = pNum;
+
                 payload.ownershipType = document.getElementById('or_ownership').value;
                 payload.occupantsCount = document.getElementById('or_occupants').value;
                 payload.contractDate = document.getElementById('or_date').value;
@@ -1038,9 +1046,17 @@
                 payload.landlordPhone = document.getElementById('tn_landlordPhone').value;
                 fileInput = document.getElementById('tn_file');
             } else if (role === 'owner_non_resident') {
-                payload.firstName = document.getElementById('onr_firstName').value;
-                payload.lastName = document.getElementById('onr_lastName').value;
-                payload.phone = document.getElementById('onr_phone').value;
+                const fName = document.getElementById('onr_firstName').value;
+                const lName = document.getElementById('onr_lastName').value;
+                const pNum = document.getElementById('onr_phone').value;
+
+                payload.firstName = fName;
+                payload.lastName = lName;
+                payload.phone = pNum;
+                // Explicitly map non-resident owner name to landlord column
+                payload.landlordName = fName + " " + lName;
+                payload.landlordPhone = pNum;
+
                 payload.ownershipType = document.getElementById('onr_ownership').value;
                 payload.contractDate = document.getElementById('onr_date').value;
                 payload.unitStatus = document.getElementById('onr_status').value;
