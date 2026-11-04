@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فرم اطلاعات ساکنین مجتمع الیزیوم</title>
+    <!-- Bootstrap 5 RTL CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css5/bootstrap.rtl.min.css">
+    <style>
+        body { background-color: #f8f9fa; font-family: Tahoma, sans-serif; }
+        .card { border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .required::after { content: " *"; color: red; }
+    </style>
+</head>
+<body class="py-5">
+    <div class="container" style="max-width: 700px;">
+        <div class="card p-4 p-md-5 bg-white">
+            <h2 class="text-center mb-3">فرم اطلاعات ساکنین مجتمع الیزیوم</h2>
+            <p class="text-muted text-center">مالکین و ساکنان محترم مجتمع مسکونی الیزیوم؛ با توجه به ضرورت به‌روزآوری اطلاعات، لطفاً فرم زیر را تکمیل نمایید.</p>
+            <hr class="mb-4">
+
+            <form id="surveyForm">
+                <!-- SECTION 1: General Info -->
+                <div class="mb-3">
+                    <label class="form-label required">بلوک (B یا ک)</label>
+                    <select class="form-select" id="block" required>
+                        <option value="">انتخاب کنید...</option>
+                        <option value="Block B">Block B (بلوک B)</option>
+                        <option value="Block C">Block C (بلوک C)</option>
+                    </select>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label required">طبقه</label>
+                        <input type="text" class="form-control" id="floor" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label required">شماره واحد (با عدد)</label>
+                        <input type="number" class="form-control" id="unitNumber" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label required">تعداد خواب</label>
+                        <input type="number" class="form-control" id="bedrooms" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label required">متراژ واحد (مترمربع)</label>
+                        <input type="number" class="form-control" id="unitSize" placeholder="فقط عدد" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label required">شماره پارکینگ</label>
+                        <input type="text" class="form-control" id="parkingNumber" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label required">شماره انبار</label>
+                        <input type="text" class="form-control" id="storageNumber" required>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label required">نقش شما در این مجتمع (الیزیوم) چیست؟</label>
+                    <select class="form-select" id="role" required onchange="handleRoleChange()">
+                        <option value="">انتخاب کنید...</option>
+                        <option value="owner_resident">مالک هستم و در واحد سکونت دارم</option>
+                        <option value="tenant">مستأجر هستم و در واحد سکونت دارم</option>
+                        <option value="owner_non_resident">مالک هستم اما در واحد سکونت ندارم</option>
+                    </select>
+                </div>
+
+                <!-- SECTION 2: Conditional Dynamic Blocks -->
+                <div id="conditionalSection" class="border-top pt-3 mt-3 d-none">
+                    <!-- Owner-Resident Form Fields -->
+                    <div id="fields_owner_resident" class="role-fields d-none">
+                        <h5 class="text-primary mb-3">اطلاعات مالک ساکن</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3"><label class="form-label required">نام مالک</label><input type="text" class="form-control or-field" id="or_firstName"></div>
+                            <div class="col-md-6 mb-3"><label class="form-label required">نام خانوادگی مالک</label><input type="text" class="form-control or-field" id="or_lastName"></div>
+                        </div>
+                        <div class="mb-3"><label class="form-label required">شماره همراه مالک</label><input type="tel" class="form-control or-field" id="or_phone"></div>
+                        <div class="mb-3">
+                            <label class="form-label required">نوع مالکیت</label>
+                            <select class="form-select or-field" id="or_ownership">
+                                <option value="">انتخاب کنید...</option>
+                                <option value="تعاونی پزشکان">تعاونی پزشکان</option>
+                                <option value="بنیاد کشاورزی">بنیاد کشاورزی</option>
+                                <option value="مستقل">مستقل</option>
+                            </select>
+                        </div>
+                        <div class="mb-3"><label class="form-label required">تعداد ساکنین واحد</label><input type="number" class="form-control or-field" id="or_occupants"></div>
+                        <div class="mb-3">
+                            <label class="form-label required">تاریخ خرید واحد (مثال: 1405/02/15)</label>
+                            <input type="text" class="form-control or-field" id="or_date" placeholder="1405/02/15">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label required">مستند مالکیت (تصویر صفحه اول سند یا مدرک)</label>
+                            <input type="file" class="form-control or-field" id="or_file" accept=".pdf,image/*">
+                            <div class="form-text">امنیت اسناد تضمین شده است. صرفاً عکس صفحه حاوی نام مالک کفایت می‌کند.</div>
+                        </div>
+                    </div>
+
+                    <!-- Tenant Form Fields -->
+                    <div id="fields_tenant" class="role-fields d-none">
+                        <h5 class="text-primary mb-3">اطلاعات مستأجر و مالک واحد</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3"><label class="form-label required">نام مستأجر</label><input type="text" class="form-control tn-field" id="tn_firstName"></div>
+                            <div class="col-md-6 mb-3"><label class="form-label required">نام خانوادگی مستأجر</label><input type="text" class="form-control tn-field" id="tn_lastName"></div>
+                        </div>
+                        <div class="mb-3"><label class="form-label required">شماره همراه مستأجر</label><input type="tel" class="form-control tn-field" id="tn_phone"></div>
+                        <div class="mb-3"><label class="form-label required">تعداد ساکنین واحد</label><input type="number" class="form-control tn-field" id="tn_occupants"></div>
+                        <div class="mb-3"><label class="form-label required">تاریخ شروع قرارداد اجاره (1405/02/15)</label><input type="text" class="form-control tn-field" id="tn_startDate"></div>
+                        <div class="mb-3"><label class="form-label required">تاریخ پایان قرارداد اجاره (1405/02/15)</label><input type="text" class="form-control tn-field" id="tn_endDate"></div>
+                        <div class="mb-3">
+                            <label class="form-label required">مستند از اجاره‌نامه</label>
+                            <input type="file" class="form-control tn-field" id="tn_file" accept=".pdf,image/*">
+                        </div>
+                        <div class="row border-top pt-3 mt-3">
+                            <div class="col-md-6 mb-3"><label class="form-label required">نام و نام خانوادگی مالک واحد</label><input type="text" class="form-control tn-field" id="tn_landlordName"></div>
+                            <div class="col-md-6 mb-3"><label class="form-label required">شماره همراه مالک واحد</label><input type="tel" class="form-control tn-field" id="tn_landlordPhone"></div>
+                        </div>
+                    </div>
+
+                    <!-- Non-Resident Owner Form Fields -->
+                    <div id="fields_owner_non_resident" class="role-fields d-none">
+                        <h5 class="text-primary mb-3">اطلاعات مالک غیرساکن</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3"><label class="form-label required">نام مالک</label><input type="text" class="form-control onr-field" id="onr_firstName"></div>
+                            <div class="col-md-6 mb-3"><label class="form-label required">نام خانوادگی مالک</label><input type="text" class="form-control onr-field" id="onr_lastName"></div>
+                        </div>
+                        <div class="mb-3"><label class="form-label required">شماره همراه مالک</label><input type="tel" class="form-control onr-field" id="onr_phone"></div>
+                        <div class="mb-3">
+                            <label class="form-label required">نوع مالکیت</label>
+                            <select class="form-select onr-field" id="onr_ownership">
+                                <option value="">انتخاب کنید...</option>
+                                <option value="تعاونی پزشکان">تعاونی پزشکان</option>
+                                <option value="بنیاد کشاورزی">بنیاد کشاورزی</option>
+                                <option value="مستقل">مستقل</option>
+                            </select>
+                        </div>
+                        <div class="mb-3"><label class="form-label required">تاریخ خرید واحد (1405/02/15)</label><input type="text" class="form-control onr-field" id="onr_date"></div>
+                        <div class="mb-3">
+                            <label class="form-label required">وضعیت فعلی واحد</label>
+                            <select class="form-select onr-field" id="onr_status">
+                                <option value="">انتخاب کنید...</option>
+                                <option value="واحد خالی است">واحد خالی است</option>
+                                <option value="واحد اجاره داده شده است">واحد اجاره داده شده است</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3"><label class="form-label">نام مستأجر فعلی (در صورت اجاره)</label><input type="text" class="form-control" id="onr_tenantName"></div>
+                            <div class="col-md-6 mb-3"><label class="form-label">شماره تماس مستأجر (در صورت اجاره)</label><input type="tel" class="form-control" id="onr_tenantPhone"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary px-5 py-2" id="submitBtn">ارسال اطلاعات</button>
+                </div>
+            </form>
+            
+            <div id="loading" class="text-center mt-3 d-none">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p class="text-muted mt-2">در حال ارسال اطلاعات، لطفاً صبر کنید...</p>
+            </div>
+            
+            <div id="successMessage" class="alert alert-success mt-3 d-none text-center">
+                اطلاعات شما با موفقیت ثبت شد. با سپاس از همکاری شما.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxaXOljirQkJnOzMWATQZGxd388m3zuAPo0XFDvACKOan94rvoGj8SOf7m9HZkHs2jF/exec";
+        function handleRoleChange() {
+            const role = document.getElementById('role').value;
+            const conditionalSection = document.getElementById('conditionalSection');
+            const allRoleFields = document.querySelectorAll('.role-fields');
+            
+            allRoleFields.forEach(el => el.classList.add('d-none'));
+            document.querySelectorAll('.or-field, .tn-field, .onr-field').forEach(el => el.removeAttribute('required'));
+
+            if (!role) {
+                conditionalSection.classList.add('d-none');
+                return;
+            }
+
+            conditionalSection.classList.remove('d-none');
+            const targetDiv = document.getElementById(`fields_${role}`);
+            if (targetDiv) {
+                targetDiv.classList.remove('d-none');
+                targetDiv.querySelectorAll(
+                    role === 'owner_resident' ? '.or-field' : 
+                    role === 'tenant' ? '.tn-field' : '.onr-field'
+                ).forEach(el => el.setAttribute('required', 'true'));
+            }
+        }
+
+        document.getElementById('surveyForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const role = document.getElementById('role').value;
+            let payload = {
+                block: document.getElementById('block').value,
+                floor: document.getElementById('floor').value,
+                unitNumber: document.getElementById('unitNumber').value,
+                bedrooms: document.getElementById('bedrooms').value,
+                unitSize: document.getElementById('unitSize').value,
+                parkingNumber: document.getElementById('parkingNumber').value,
+                storageNumber: document.getElementById('storageNumber').value,
+                role: role
+            };
+
+            let fileInput = null;
+
+            if (role === 'owner_resident') {
+                payload.firstName = document.getElementById('or_firstName').value;
+                payload.lastName = document.getElementById('or_lastName').value;
+                payload.phone = document.getElementById('or_phone').value;
+                payload.ownershipType = document.getElementById('or_ownership').value;
+                payload.occupantsCount = document.getElementById('or_occupants').value;
+                payload.contractDate = document.getElementById('or_date').value;
+                fileInput = document.getElementById('or_file');
+            } else if (role === 'tenant') {
+                payload.firstName = document.getElementById('tn_firstName').value;
+                payload.lastName = document.getElementById('tn_lastName').value;
+                payload.phone = document.getElementById('tn_phone').value;
+                payload.occupantsCount = document.getElementById('tn_occupants').value;
+                payload.contractDate = document.getElementById('tn_startDate').value;
+                payload.leaseEndDate = document.getElementById('tn_endDate').value;
+                payload.landlordName = document.getElementById('tn_landlordName').value;
+                payload.landlordPhone = document.getElementById('tn_landlordPhone').value;
+                fileInput = document.getElementById('tn_file');
+            } else if (role === 'owner_non_resident') {
+                payload.firstName = document.getElementById('onr_firstName').value;
+                payload.lastName = document.getElementById('onr_lastName').value;
+                payload.phone = document.getElementById('onr_phone').value;
+                payload.ownershipType = document.getElementById('onr_ownership').value;
+                payload.contractDate = document.getElementById('onr_date').value;
+                payload.unitStatus = document.getElementById('onr_status').value;
+                payload.tenantName = document.getElementById('onr_tenantName').value;
+                payload.tenantPhone = document.getElementById('onr_tenantPhone').value;
+            }
+
+            // Handle File conversion to Base64 if uploaded
+            if (fileInput && fileInput.files[0]) {
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = async function() {
+                    payload.fileData = reader.result;
+                    payload.fileName = file.name;
+                    payload.fileMimeType = file.type;
+                    await sendData(payload);
+                };
+            } else {
+                await sendData(payload);
+            }
+        });
+
+        async function sendData(payload) {
+            document.getElementById('loading').classList.remove('d-none');
+            document.getElementById('submitBtn').disabled = true;
+
+            try {
+                const response = await fetch(WEB_APP_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+                if (result.status === 'success') {
+                    document.getElementById('surveyForm').reset();
+                    document.getElementById('conditionalSection').classList.add('d-none');
+                    document.getElementById('successMessage').classList.remove('d-none');
+                } else {
+                    alert('خطا در ثبت اطلاعات: ' + result.message);
+                }
+            } catch (err) {
+                alert('خطا در ارتباط با سرور.');
+                console.error(err);
+            } finally {
+                document.getElementById('loading').classList.add('d-none');
+                document.getElementById('submitBtn').disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
