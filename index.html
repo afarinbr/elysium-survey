@@ -244,6 +244,20 @@
             display: none !important;
         }
 
+        /* Select placeholder styling when default empty option is selected */
+        select.gf-select:has(option[value=""]:checked),
+        select.gf-select:invalid {
+            color: #80868b;
+        }
+
+        select.gf-select option {
+            color: var(--gf-text-dark);
+        }
+
+        select.gf-select option[disabled] {
+            color: #80868b;
+        }
+
         .gf-input:hover,
         .gf-select:hover,
         .form-control:hover,
@@ -799,7 +813,8 @@
                         بلوک (B یا C) <span class="req">*</span>
                     </label>
                     <select class="gf-select" id="block" required>
-                        <option value="Block B" selected>Block B (بلوک B)</option>
+                        <option value="" selected disabled>انتخاب کنید...</option>
+                        <option value="Block B">Block B (بلوک B)</option>
                         <option value="Block C">Block C (بلوک C)</option>
                     </select>
                 </div>
@@ -873,7 +888,8 @@
                                 <div class="col-4">
                                     <label class="gf-sublabel">طبقه</label>
                                     <select class="gf-select parking-level">
-                                        <option value="P1" selected>P1 (طبقه ۱-)</option>
+                                        <option value="" selected disabled>انتخاب کنید...</option>
+                                        <option value="P1">P1 (طبقه ۱-)</option>
                                         <option value="P2">P2 (طبقه ۲-)</option>
                                         <option value="P3">P3 (طبقه ۳-)</option>
                                     </select>
@@ -913,7 +929,8 @@
                                 <div class="col-4">
                                     <label class="gf-sublabel">طبقه</label>
                                     <select class="gf-select storage-level">
-                                        <option value="P1" selected>P1 (طبقه ۱-)</option>
+                                        <option value="" selected disabled>انتخاب کنید...</option>
+                                        <option value="P1">P1 (طبقه ۱-)</option>
                                         <option value="P2">P2 (طبقه ۲-)</option>
                                         <option value="P3">P3 (طبقه ۳-)</option>
                                         <option value="همکف">همکف</option>
@@ -947,7 +964,8 @@
                         وضعیت بهره‌برداری فعلی شما از این واحد چیست؟ <span class="req">*</span>
                     </label>
                     <select class="gf-select" id="role" required onchange="handleRoleChange()">
-                        <option value="owner_dweller" selected>مالک هستم و در واحد سکونت دارم</option>
+                        <option value="" selected disabled>انتخاب کنید...</option>
+                        <option value="owner_dweller">مالک هستم و در واحد سکونت دارم</option>
                         <option value="owner_empty">مالک هستم اما واحد در حال حاضر خالی است</option>
                         <option value="owner_rented">مالک هستم و واحد اجاره داده شده است</option>
                     </select>
@@ -1018,7 +1036,8 @@
                             نوع مالکیت <span class="req">*</span>
                         </label>
                         <select class="gf-select or-dweller-field" id="or_dweller_ownership">
-                            <option value="تعاونی پزشکان" selected>تعاونی پزشکان</option>
+                            <option value="" selected disabled>انتخاب کنید...</option>
+                            <option value="تعاونی پزشکان">تعاونی پزشکان</option>
                             <option value="بنیاد کشاورزی">بنیاد کشاورزی</option>
                             <option value="مستقل">مستقل</option>
                         </select>
@@ -1160,7 +1179,8 @@
                             نوع مالکیت <span class="req">*</span>
                         </label>
                         <select class="gf-select or-empty-field" id="or_empty_ownership">
-                            <option value="تعاونی پزشکان" selected>تعاونی پزشکان</option>
+                            <option value="" selected disabled>انتخاب کنید...</option>
+                            <option value="تعاونی پزشکان">تعاونی پزشکان</option>
                             <option value="بنیاد کشاورزی">بنیاد کشاورزی</option>
                             <option value="مستقل">مستقل</option>
                         </select>
@@ -1296,7 +1316,8 @@
                                 نوع مالکیت <span class="req">*</span>
                             </label>
                             <select class="gf-select or-rented-field" id="rn_owner_ownership">
-                                <option value="تعاونی پزشکان" selected>تعاونی پزشکان</option>
+                                <option value="" selected disabled>انتخاب کنید...</option>
+                                <option value="تعاونی پزشکان">تعاونی پزشکان</option>
                                 <option value="بنیاد کشاورزی">بنیاد کشاورزی</option>
                                 <option value="مستقل">مستقل</option>
                             </select>
@@ -1894,7 +1915,8 @@
                     <div class="col-4">
                         <label class="gf-sublabel">طبقه</label>
                         <select class="gf-select parking-level">
-                            <option value="P1" selected>P1 (طبقه ۱-)</option>
+                            <option value="" selected disabled>انتخاب کنید...</option>
+                            <option value="P1">P1 (طبقه ۱-)</option>
                             <option value="P2">P2 (طبقه ۲-)</option>
                             <option value="P3">P3 (طبقه ۳-)</option>
                         </select>
@@ -1923,7 +1945,8 @@
                     <div class="col-4">
                         <label class="gf-sublabel">طبقه</label>
                         <select class="gf-select storage-level">
-                            <option value="P1" selected>P1 (طبقه ۱-)</option>
+                            <option value="" selected disabled>انتخاب کنید...</option>
+                            <option value="P1">P1 (طبقه ۱-)</option>
                             <option value="P2">P2 (طبقه ۲-)</option>
                             <option value="P3">P3 (طبقه ۳-)</option>
                             <option value="همکف">همکف</option>
@@ -2065,8 +2088,8 @@
             document.getElementById('surveyForm').classList.remove('d-none');
             document.getElementById('successCard').classList.add('d-none');
 
-            // Default to owner_dweller cleanly
-            document.getElementById('role').value = 'owner_dweller';
+            // Reset role and hide conditional Section 5
+            document.getElementById('role').value = '';
             handleRoleChange(false);
 
             // Reset dynamic owners to 1 each
@@ -2113,9 +2136,16 @@
                 return;
             }
 
+            const block = document.getElementById('block').value;
+            if (!block) {
+                alert('لطفاً بلوک واحد را انتخاب فرمایید.');
+                document.getElementById('block').focus();
+                return;
+            }
+
             const role = document.getElementById('role').value;
             if (!role) {
-                alert('لطفاً نقش و وضعیت سکونت خود را انتخاب فرمایید.');
+                alert('لطفاً وضعیت بهره‌برداری از واحد را انتخاب فرمایید.');
                 document.getElementById('role').focus();
                 return;
             }
@@ -2132,26 +2162,36 @@
 
             // Collect structured Parking entries
             const parkingEntries = [];
-            document.querySelectorAll('#parkingContainer .parking-row').forEach(row => {
+            for (const row of document.querySelectorAll('#parkingContainer .parking-row')) {
                 const num = row.querySelector('.parking-number')?.value.trim();
                 const lvl = row.querySelector('.parking-level')?.value;
                 if (num) {
+                    if (!lvl) {
+                        alert('لطفاً طبقه پارکینگ را انتخاب فرمایید.');
+                        row.querySelector('.parking-level')?.focus();
+                        return;
+                    }
                     parkingEntries.push({ number: num, level: lvl });
                 }
-            });
+            }
             const parkingString = parkingEntries.length > 0 
                 ? parkingEntries.map(p => `${p.level}-${p.number}`).join(', ') 
                 : 'ندارد';
 
             // Collect structured Storage entries
             const storageEntries = [];
-            document.querySelectorAll('#storageContainer .storage-row').forEach(row => {
+            for (const row of document.querySelectorAll('#storageContainer .storage-row')) {
                 const num = row.querySelector('.storage-number')?.value.trim();
                 const lvl = row.querySelector('.storage-level')?.value;
                 if (num) {
+                    if (!lvl) {
+                        alert('لطفاً طبقه انبار را انتخاب فرمایید.');
+                        row.querySelector('.storage-level')?.focus();
+                        return;
+                    }
                     storageEntries.push({ number: num, level: lvl });
                 }
-            });
+            }
             const storageString = storageEntries.length > 0 
                 ? storageEntries.map(s => `${s.level}-${s.number}`).join(', ') 
                 : 'ندارد';
@@ -2199,7 +2239,14 @@
                 const phone = document.getElementById('or_dweller_phone').value;
                 payload.phone = phone;
                 payload.landlordPhone = phone;
-                payload.ownershipType = document.getElementById('or_dweller_ownership').value;
+                
+                const ownershipType = document.getElementById('or_dweller_ownership').value;
+                if (!ownershipType) {
+                    alert('لطفاً نوع مالکیت را انتخاب فرمایید.');
+                    document.getElementById('or_dweller_ownership').focus();
+                    return;
+                }
+                payload.ownershipType = ownershipType;
                 payload.occupantsCount = document.getElementById('or_dweller_occupants').value;
                 payload.contractDate = purchaseDate;
                 payload.purchaseDate = purchaseDate;
@@ -2235,7 +2282,14 @@
                 const phone = document.getElementById('or_empty_phone').value;
                 payload.phone = phone;
                 payload.landlordPhone = phone;
-                payload.ownershipType = document.getElementById('or_empty_ownership').value;
+
+                const ownershipType = document.getElementById('or_empty_ownership').value;
+                if (!ownershipType) {
+                    alert('لطفاً نوع مالکیت را انتخاب فرمایید.');
+                    document.getElementById('or_empty_ownership').focus();
+                    return;
+                }
+                payload.ownershipType = ownershipType;
                 payload.contractDate = purchaseDate;
                 payload.purchaseDate = purchaseDate;
                 payload.occupantsCount = 0;
@@ -2280,7 +2334,14 @@
                 const ownerPhone = document.getElementById('rn_owner_phone').value;
                 payload.landlordPhone = ownerPhone;
                 payload.ownerPhone = ownerPhone;
-                payload.ownershipType = document.getElementById('rn_owner_ownership').value;
+
+                const ownershipType = document.getElementById('rn_owner_ownership').value;
+                if (!ownershipType) {
+                    alert('لطفاً نوع مالکیت را انتخاب فرمایید.');
+                    document.getElementById('rn_owner_ownership').focus();
+                    return;
+                }
+                payload.ownershipType = ownershipType;
                 payload.purchaseDate = purchaseDate;
 
                 // Tenant details
