@@ -219,6 +219,24 @@
                         background-color 0.2s;
         }
 
+        /* Clean select dropdown with embedded arrow on left side */
+        .gf-select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='18' height='18' fill='%235f6368'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 12px center;
+            background-size: 18px;
+            padding-left: 36px;
+            padding-right: 14px;
+            cursor: pointer;
+        }
+
+        .gf-select:focus {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='18' height='18' fill='%23673ab7'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+        }
+
         .gf-input:hover,
         .gf-select:hover,
         .form-control:hover,
@@ -247,6 +265,31 @@
             opacity: 1 !important;
             height: 28px;
             cursor: pointer;
+        }
+
+        /* Remove incremental increase spinners completely from unitSize and all date inputs */
+        #unitSize::-webkit-inner-spin-button,
+        #unitSize::-webkit-outer-spin-button,
+        .gf-date-input::-webkit-inner-spin-button,
+        .gf-date-input::-webkit-outer-spin-button,
+        .gf-date-wrapper input::-webkit-inner-spin-button,
+        .gf-date-wrapper input::-webkit-outer-spin-button {
+            -webkit-appearance: none !important;
+            margin: 0 !important;
+            display: none !important;
+        }
+
+        #unitSize,
+        .gf-date-input,
+        .gf-date-wrapper input {
+            -moz-appearance: textfield !important;
+        }
+
+        .persian-name-hint {
+            font-size: 11.5px;
+            color: #d93025;
+            margin-top: 4px;
+            font-weight: 500;
         }
 
         /* --- Custom Buttons --- */
@@ -750,8 +793,7 @@
                         بلوک (B یا C) <span class="req">*</span>
                     </label>
                     <select class="gf-select" id="block" required>
-                        <option value="">انتخاب کنید...</option>
-                        <option value="Block B">Block B (بلوک B)</option>
+                        <option value="Block B" selected>Block B (بلوک B)</option>
                         <option value="Block C">Block C (بلوک C)</option>
                     </select>
                 </div>
@@ -795,7 +837,7 @@
                         <label class="gf-label" for="unitSize">
                             متراژ واحد (مترمربع) <span class="req">*</span>
                         </label>
-                        <input type="number" class="gf-input" id="unitSize" placeholder="فقط عدد (مثال: 125)" min="1" required>
+                        <input type="text" inputmode="numeric" class="gf-input" id="unitSize" placeholder="فقط عدد (مثال: 125)" required oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                     </div>
                 </div>
             </div>
@@ -903,8 +945,7 @@
                         نقش و وضعیت سکونت در مجتمع الیزیوم <span class="req">*</span>
                     </label>
                     <select class="gf-select" id="role" required onchange="handleRoleChange()">
-                        <option value="">انتخاب کنید...</option>
-                        <option value="owner_dweller">مالک هستم و در واحد سکونت دارم (owner_dweller)</option>
+                        <option value="owner_dweller" selected>مالک هستم و در واحد سکونت دارم (owner_dweller)</option>
                         <option value="owner_empty">مالک هستم اما واحد در حال حاضر خالی است (owner_empty)</option>
                         <option value="owner_rented">مالک هستم و واحد اجاره داده شده است (owner_rented)</option>
                     </select>
@@ -943,11 +984,11 @@
                                 <div class="row g-2">
                                     <div class="col-6">
                                         <label class="gf-sublabel">نام <span class="req">*</span></label>
-                                        <input type="text" class="gf-input or-dweller-field owner-fname" placeholder="مثال: علی">
+                                        <input type="text" class="gf-input or-dweller-field owner-fname persian-name-input" placeholder="مثال: علی">
                                     </div>
                                     <div class="col-6">
                                         <label class="gf-sublabel">نام خانوادگی <span class="req">*</span></label>
-                                        <input type="text" class="gf-input or-dweller-field owner-lname" placeholder="مثال: محمدی">
+                                        <input type="text" class="gf-input or-dweller-field owner-lname persian-name-input" placeholder="مثال: محمدی">
                                     </div>
                                 </div>
                             </div>
@@ -975,8 +1016,7 @@
                             نوع مالکیت <span class="req">*</span>
                         </label>
                         <select class="gf-select or-dweller-field" id="or_dweller_ownership">
-                            <option value="">انتخاب کنید...</option>
-                            <option value="تعاونی پزشکان">تعاونی پزشکان</option>
+                            <option value="تعاونی پزشکان" selected>تعاونی پزشکان</option>
                             <option value="بنیاد کشاورزی">بنیاد کشاورزی</option>
                             <option value="مستقل">مستقل</option>
                         </select>
@@ -990,25 +1030,25 @@
                         <input type="number" class="gf-input or-dweller-field" id="or_dweller_occupants" placeholder="تعداد نفرات (فقط عدد مثبت)" min="1" step="1" oninput="if(this.value < 1 && this.value !== '') this.value = 1;">
                     </div>
 
-                    <!-- تاریخ خرید واحد (۳ بخشی شمسی) -->
+                    <!-- تاریخ خرید واحد (۳ بخشی شمسی: روز / ماه / سال) -->
                     <div class="gf-field-group">
                         <label class="gf-label">
                             تاریخ خرید واحد <span class="req">*</span>
                         </label>
                         <div class="gf-date-wrapper" id="date_picker_or_dweller">
                             <div class="row g-2 align-items-start">
-                                <!-- سال -->
+                                <!-- روز (در راست‌ترین موقعیت در چیدمان راست‌به‌چپ) -->
                                 <div class="col-4">
-                                    <label class="gf-sublabel text-center d-block">سال</label>
+                                    <label class="gf-sublabel text-center d-block">روز</label>
                                     <div class="gf-date-col-inner position-relative">
-                                        <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-year or-dweller-field" minlength="4" maxlength="4" placeholder="سال" autocomplete="off">
-                                        <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب سال">
+                                        <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-day or-dweller-field" maxlength="2" placeholder="روز" autocomplete="off">
+                                        <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب روز">
                                             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
                                         </span>
-                                        <div class="gf-dropdown-menu gf-year-menu"></div>
+                                        <div class="gf-dropdown-menu gf-day-menu"></div>
                                     </div>
                                 </div>
-                                <!-- ماه -->
+                                <!-- ماه (در میانه چیدمان) -->
                                 <div class="col-4">
                                     <label class="gf-sublabel text-center d-block">ماه</label>
                                     <div class="gf-date-col-inner position-relative">
@@ -1019,11 +1059,15 @@
                                         <div class="gf-dropdown-menu gf-month-menu"></div>
                                     </div>
                                 </div>
-                                <!-- روز -->
+                                <!-- سال (در چپ‌ترین موقعیت در چیدمان راست‌به‌چپ) -->
                                 <div class="col-4">
-                                    <label class="gf-sublabel text-center d-block">روز</label>
+                                    <label class="gf-sublabel text-center d-block">سال</label>
                                     <div class="gf-date-col-inner position-relative">
-                                        <input type="text" inputmode="numeric" class="gf-date-input text-center j-day or-dweller-field" maxlength="2" placeholder="روز" autocomplete="off">
+                                        <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-year or-dweller-field" minlength="4" maxlength="4" placeholder="سال" autocomplete="off">
+                                        <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب سال">
+                                            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                                        </span>
+                                        <div class="gf-dropdown-menu gf-year-menu"></div>
                                     </div>
                                 </div>
                             </div>
@@ -1082,11 +1126,11 @@
                                 <div class="row g-2">
                                     <div class="col-6">
                                         <label class="gf-sublabel">نام <span class="req">*</span></label>
-                                        <input type="text" class="gf-input or-empty-field owner-fname" placeholder="مثال: علی">
+                                        <input type="text" class="gf-input or-empty-field owner-fname persian-name-input" placeholder="مثال: علی">
                                     </div>
                                     <div class="col-6">
                                         <label class="gf-sublabel">نام خانوادگی <span class="req">*</span></label>
-                                        <input type="text" class="gf-input or-empty-field owner-lname" placeholder="مثال: محمدی">
+                                        <input type="text" class="gf-input or-empty-field owner-lname persian-name-input" placeholder="مثال: محمدی">
                                     </div>
                                 </div>
                             </div>
@@ -1114,32 +1158,31 @@
                             نوع مالکیت <span class="req">*</span>
                         </label>
                         <select class="gf-select or-empty-field" id="or_empty_ownership">
-                            <option value="">انتخاب کنید...</option>
-                            <option value="تعاونی پزشکان">تعاونی پزشکان</option>
+                            <option value="تعاونی پزشکان" selected>تعاونی پزشکان</option>
                             <option value="بنیاد کشاورزی">بنیاد کشاورزی</option>
                             <option value="مستقل">مستقل</option>
                         </select>
                     </div>
 
-                    <!-- تاریخ خرید واحد (۳ بخشی شمسی) -->
+                    <!-- تاریخ خرید واحد (۳ بخشی شمسی: روز / ماه / سال) -->
                     <div class="gf-field-group">
                         <label class="gf-label">
                             تاریخ خرید واحد <span class="req">*</span>
                         </label>
                         <div class="gf-date-wrapper" id="date_picker_or_empty">
                             <div class="row g-2 align-items-start">
-                                <!-- سال -->
+                                <!-- روز (در راست‌ترین موقعیت در چیدمان راست‌به‌چپ) -->
                                 <div class="col-4">
-                                    <label class="gf-sublabel text-center d-block">سال</label>
+                                    <label class="gf-sublabel text-center d-block">روز</label>
                                     <div class="gf-date-col-inner position-relative">
-                                        <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-year or-empty-field" minlength="4" maxlength="4" placeholder="سال" autocomplete="off">
-                                        <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب سال">
+                                        <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-day or-empty-field" maxlength="2" placeholder="روز" autocomplete="off">
+                                        <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب روز">
                                             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
                                         </span>
-                                        <div class="gf-dropdown-menu gf-year-menu"></div>
+                                        <div class="gf-dropdown-menu gf-day-menu"></div>
                                     </div>
                                 </div>
-                                <!-- ماه -->
+                                <!-- ماه (در میانه چیدمان) -->
                                 <div class="col-4">
                                     <label class="gf-sublabel text-center d-block">ماه</label>
                                     <div class="gf-date-col-inner position-relative">
@@ -1150,11 +1193,15 @@
                                         <div class="gf-dropdown-menu gf-month-menu"></div>
                                     </div>
                                 </div>
-                                <!-- روز -->
+                                <!-- سال (در چپ‌ترین موقعیت در چیدمان راست‌به‌چپ) -->
                                 <div class="col-4">
-                                    <label class="gf-sublabel text-center d-block">روز</label>
+                                    <label class="gf-sublabel text-center d-block">سال</label>
                                     <div class="gf-date-col-inner position-relative">
-                                        <input type="text" inputmode="numeric" class="gf-date-input text-center j-day or-empty-field" maxlength="2" placeholder="روز" autocomplete="off">
+                                        <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-year or-empty-field" minlength="4" maxlength="4" placeholder="سال" autocomplete="off">
+                                        <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب سال">
+                                            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                                        </span>
+                                        <div class="gf-dropdown-menu gf-year-menu"></div>
                                     </div>
                                 </div>
                             </div>
@@ -1216,11 +1263,11 @@
                                     <div class="row g-2">
                                         <div class="col-6">
                                             <label class="gf-sublabel">نام <span class="req">*</span></label>
-                                            <input type="text" class="gf-input or-rented-field owner-fname" placeholder="مثال: علی">
+                                            <input type="text" class="gf-input or-rented-field owner-fname persian-name-input" placeholder="مثال: علی">
                                         </div>
                                         <div class="col-6">
                                             <label class="gf-sublabel">نام خانوادگی <span class="req">*</span></label>
-                                            <input type="text" class="gf-input or-rented-field owner-lname" placeholder="مثال: محمدی">
+                                            <input type="text" class="gf-input or-rented-field owner-lname persian-name-input" placeholder="مثال: محمدی">
                                         </div>
                                     </div>
                                 </div>
@@ -1247,32 +1294,31 @@
                                 نوع مالکیت <span class="req">*</span>
                             </label>
                             <select class="gf-select or-rented-field" id="rn_owner_ownership">
-                                <option value="">انتخاب کنید...</option>
-                                <option value="تعاونی پزشکان">تعاونی پزشکان</option>
+                                <option value="تعاونی پزشکان" selected>تعاونی پزشکان</option>
                                 <option value="بنیاد کشاورزی">بنیاد کشاورزی</option>
                                 <option value="مستقل">مستقل</option>
                             </select>
                         </div>
 
-                        <!-- تاریخ خرید واحد (۳ بخشی شمسی) -->
+                        <!-- تاریخ خرید واحد (۳ بخشی شمسی: روز / ماه / سال) -->
                         <div class="gf-field-group">
                             <label class="gf-label">
                                 تاریخ خرید واحد <span class="req">*</span>
                             </label>
                             <div class="gf-date-wrapper" id="date_picker_rn_owner">
                                 <div class="row g-2 align-items-start">
-                                    <!-- سال -->
+                                    <!-- روز (در راست‌ترین موقعیت در چیدمان راست‌به‌چپ) -->
                                     <div class="col-4">
-                                        <label class="gf-sublabel text-center d-block">سال</label>
+                                        <label class="gf-sublabel text-center d-block">روز</label>
                                         <div class="gf-date-col-inner position-relative">
-                                            <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-year or-rented-field" minlength="4" maxlength="4" placeholder="سال" autocomplete="off">
-                                            <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب سال">
+                                            <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-day or-rented-field" maxlength="2" placeholder="روز" autocomplete="off">
+                                            <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب روز">
                                                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
                                             </span>
-                                            <div class="gf-dropdown-menu gf-year-menu"></div>
+                                            <div class="gf-dropdown-menu gf-day-menu"></div>
                                         </div>
                                     </div>
-                                    <!-- ماه -->
+                                    <!-- ماه (در میانه چیدمان) -->
                                     <div class="col-4">
                                         <label class="gf-sublabel text-center d-block">ماه</label>
                                         <div class="gf-date-col-inner position-relative">
@@ -1283,11 +1329,15 @@
                                             <div class="gf-dropdown-menu gf-month-menu"></div>
                                         </div>
                                     </div>
-                                    <!-- روز -->
+                                    <!-- سال (در چپ‌ترین موقعیت در چیدمان راست‌به‌چپ) -->
                                     <div class="col-4">
-                                        <label class="gf-sublabel text-center d-block">روز</label>
+                                        <label class="gf-sublabel text-center d-block">سال</label>
                                         <div class="gf-date-col-inner position-relative">
-                                            <input type="text" inputmode="numeric" class="gf-date-input text-center j-day or-rented-field" maxlength="2" placeholder="روز" autocomplete="off">
+                                            <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-year or-rented-field" minlength="4" maxlength="4" placeholder="سال" autocomplete="off">
+                                            <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب سال">
+                                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                                            </span>
+                                            <div class="gf-dropdown-menu gf-year-menu"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1315,13 +1365,13 @@
                                 <label class="gf-label" for="rn_tenant_fname">
                                     نام مستأجر <span class="req">*</span>
                                 </label>
-                                <input type="text" class="gf-input or-rented-field" id="rn_tenant_fname" placeholder="مثال: رضا">
+                                <input type="text" class="gf-input or-rented-field persian-name-input" id="rn_tenant_fname" placeholder="مثال: رضا">
                             </div>
                             <div class="col-6 gf-field-group">
                                 <label class="gf-label" for="rn_tenant_lname">
                                     نام خانوادگی مستأجر <span class="req">*</span>
                                 </label>
-                                <input type="text" class="gf-input or-rented-field" id="rn_tenant_lname" placeholder="مثال: حسینی">
+                                <input type="text" class="gf-input or-rented-field persian-name-input" id="rn_tenant_lname" placeholder="مثال: حسینی">
                             </div>
                         </div>
 
@@ -1341,25 +1391,25 @@
                             <input type="number" class="gf-input or-rented-field" id="rn_tenant_occupants" placeholder="تعداد نفرات (فقط عدد مثبت)" min="1" step="1" oninput="if(this.value < 1 && this.value !== '') this.value = 1;">
                         </div>
 
-                        <!-- تاریخ شروع قرارداد اجاره (۳ بخشی شمسی) -->
+                        <!-- تاریخ شروع قرارداد اجاره (۳ بخشی شمسی: روز / ماه / سال) -->
                         <div class="gf-field-group">
                             <label class="gf-label">
                                 تاریخ شروع قرارداد اجاره <span class="req">*</span>
                             </label>
                             <div class="gf-date-wrapper" id="date_picker_rn_start">
                                 <div class="row g-2 align-items-start">
-                                    <!-- سال -->
+                                    <!-- روز (در راست‌ترین موقعیت در چیدمان راست‌به‌چپ) -->
                                     <div class="col-4">
-                                        <label class="gf-sublabel text-center d-block">سال</label>
+                                        <label class="gf-sublabel text-center d-block">روز</label>
                                         <div class="gf-date-col-inner position-relative">
-                                            <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-year or-rented-field" minlength="4" maxlength="4" placeholder="سال" autocomplete="off">
-                                            <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب سال">
+                                            <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-day or-rented-field" maxlength="2" placeholder="روز" autocomplete="off">
+                                            <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب روز">
                                                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
                                             </span>
-                                            <div class="gf-dropdown-menu gf-year-menu"></div>
+                                            <div class="gf-dropdown-menu gf-day-menu"></div>
                                         </div>
                                     </div>
-                                    <!-- ماه -->
+                                    <!-- ماه (در میانه چیدمان) -->
                                     <div class="col-4">
                                         <label class="gf-sublabel text-center d-block">ماه</label>
                                         <div class="gf-date-col-inner position-relative">
@@ -1370,11 +1420,15 @@
                                             <div class="gf-dropdown-menu gf-month-menu"></div>
                                         </div>
                                     </div>
-                                    <!-- روز -->
+                                    <!-- سال (در چپ‌ترین موقعیت در چیدمان راست‌به‌چپ) -->
                                     <div class="col-4">
-                                        <label class="gf-sublabel text-center d-block">روز</label>
+                                        <label class="gf-sublabel text-center d-block">سال</label>
                                         <div class="gf-date-col-inner position-relative">
-                                            <input type="text" inputmode="numeric" class="gf-date-input text-center j-day or-rented-field" maxlength="2" placeholder="روز" autocomplete="off">
+                                            <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-year or-rented-field" minlength="4" maxlength="4" placeholder="سال" autocomplete="off">
+                                            <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب سال">
+                                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                                            </span>
+                                            <div class="gf-dropdown-menu gf-year-menu"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1385,25 +1439,25 @@
                             </div>
                         </div>
 
-                        <!-- تاریخ پایان قرارداد اجاره (۳ بخشی شمسی) -->
+                        <!-- تاریخ پایان قرارداد اجاره (۳ بخشی شمسی: روز / ماه / سال) -->
                         <div class="gf-field-group">
                             <label class="gf-label">
                                 تاریخ پایان قرارداد اجاره <span class="req">*</span>
                             </label>
                             <div class="gf-date-wrapper" id="date_picker_rn_end">
                                 <div class="row g-2 align-items-start">
-                                    <!-- سال -->
+                                    <!-- روز (در راست‌ترین موقعیت در چیدمان راست‌به‌چپ) -->
                                     <div class="col-4">
-                                        <label class="gf-sublabel text-center d-block">سال</label>
+                                        <label class="gf-sublabel text-center d-block">روز</label>
                                         <div class="gf-date-col-inner position-relative">
-                                            <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-year or-rented-field" minlength="4" maxlength="4" placeholder="سال" autocomplete="off">
-                                            <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب سال">
+                                            <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-day or-rented-field" maxlength="2" placeholder="روز" autocomplete="off">
+                                            <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب روز">
                                                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
                                             </span>
-                                            <div class="gf-dropdown-menu gf-year-menu"></div>
+                                            <div class="gf-dropdown-menu gf-day-menu"></div>
                                         </div>
                                     </div>
-                                    <!-- ماه -->
+                                    <!-- ماه (در میانه چیدمان) -->
                                     <div class="col-4">
                                         <label class="gf-sublabel text-center d-block">ماه</label>
                                         <div class="gf-date-col-inner position-relative">
@@ -1414,11 +1468,15 @@
                                             <div class="gf-dropdown-menu gf-month-menu"></div>
                                         </div>
                                     </div>
-                                    <!-- روز -->
+                                    <!-- سال (در چپ‌ترین موقعیت در چیدمان راست‌به‌چپ) -->
                                     <div class="col-4">
-                                        <label class="gf-sublabel text-center d-block">روز</label>
+                                        <label class="gf-sublabel text-center d-block">سال</label>
                                         <div class="gf-date-col-inner position-relative">
-                                            <input type="text" inputmode="numeric" class="gf-date-input text-center j-day or-rented-field" maxlength="2" placeholder="روز" autocomplete="off">
+                                            <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-year or-rented-field" minlength="4" maxlength="4" placeholder="سال" autocomplete="off">
+                                            <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب سال">
+                                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                                            </span>
+                                            <div class="gf-dropdown-menu gf-year-menu"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1492,11 +1550,11 @@
             { num: "12", name: "اسفند" }
         ];
 
-        // 1. Initialize Jalali Date Pickers (Populate Descending Years & Months)
+        // 1. Initialize Jalali Date Pickers (Populate Descending Years 1415-1350, Months, and Days 01-31)
         function initDatePickers() {
-            // Descending years from 1405 down to 1350
+            // Expanded descending years from 1415 down to 1350
             let yearHtml = '';
-            for (let y = 1405; y >= 1350; y--) {
+            for (let y = 1415; y >= 1350; y--) {
                 yearHtml += `<a class="gf-dropdown-item" href="javascript:void(0)" data-val="${y}">${y}</a>`;
             }
             document.querySelectorAll('.gf-year-menu').forEach(el => el.innerHTML = yearHtml);
@@ -1507,6 +1565,14 @@
                 monthHtml += `<a class="gf-dropdown-item" href="javascript:void(0)" data-val="${m.num}">${m.name} (${m.num})</a>`;
             });
             document.querySelectorAll('.gf-month-menu').forEach(el => el.innerHTML = monthHtml);
+
+            // Days from 01 to 31
+            let dayHtml = '';
+            for (let d = 1; d <= 31; d++) {
+                const dStr = String(d).padStart(2, '0');
+                dayHtml += `<a class="gf-dropdown-item" href="javascript:void(0)" data-val="${dStr}">${dStr}</a>`;
+            }
+            document.querySelectorAll('.gf-day-menu').forEach(el => el.innerHTML = dayHtml);
 
             // Bind listeners for all date pickers
             document.querySelectorAll('.gf-date-wrapper').forEach(wrapper => {
@@ -1531,7 +1597,6 @@
                 // Auto-convert Persian month name typed into numeric month
                 if (monthInput) {
                     monthInput.addEventListener('input', function() {
-                        // If typed numeric digits, allow typing up to 12
                         if (/^\d+$/.test(this.value.trim())) {
                             let n = parseInt(this.value.trim(), 10);
                             if (n > 12) this.value = '12';
@@ -1541,7 +1606,6 @@
                     monthInput.addEventListener('blur', function() {
                         const val = this.value.trim();
                         if (!val) return;
-                        // If typed full or partial month name
                         const matched = JALALI_MONTHS.find(m => m.name.includes(val) || val.includes(m.name));
                         if (matched) {
                             this.value = matched.num;
@@ -1599,14 +1663,17 @@
         function getPickerDateString(wrapperId) {
             const wrapper = document.getElementById(wrapperId);
             if (!wrapper) return '';
-            const y = wrapper.querySelector('.j-year')?.value.trim();
-            const m = wrapper.querySelector('.j-month')?.value.trim();
-            const d = wrapper.querySelector('.j-day')?.value.trim();
+            const y = parseInt(wrapper.querySelector('.j-year')?.value.trim(), 10);
+            const m = parseInt(wrapper.querySelector('.j-month')?.value.trim(), 10);
+            const d = parseInt(wrapper.querySelector('.j-day')?.value.trim(), 10);
             if (!y || !m || !d) return '';
+            if (y < 1350 || y > 1415) return '';
+            if (m < 1 || m > 12) return '';
+            if (d < 1 || d > 31) return '';
             return `${y}/${String(m).padStart(2, '0')}/${String(d).padStart(2, '0')}`;
         }
 
-        // Global dropdown toggle handling (Inner field arrow, accessible & lightweight)
+        // Global dropdown toggle handling (Inner embedded arrow, auto-scrolls to current/selected year)
         document.addEventListener('click', function(e) {
             const toggleBtn = e.target.closest('.gf-dd-toggle');
             if (toggleBtn) {
@@ -1625,6 +1692,25 @@
                 if (!isOpen) {
                     menu.classList.add('show');
                     colInner.classList.add('active-dropdown');
+
+                    // Auto-scroll Year menu to current year (1403-1405) or selected year for quick accessibility
+                    const yearInput = colInner.querySelector('.j-year');
+                    if (yearInput) {
+                        const targetYear = parseInt(yearInput.value, 10) || 1403;
+                        const targetItem = menu.querySelector(`[data-val="${targetYear}"]`);
+                        if (targetItem) {
+                            setTimeout(() => targetItem.scrollIntoView({ block: 'center' }), 10);
+                        }
+                    }
+
+                    // Auto-scroll Day menu to selected day
+                    const dayInput = colInner.querySelector('.j-day');
+                    if (dayInput && dayInput.value) {
+                        const targetItem = menu.querySelector(`[data-val="${String(parseInt(dayInput.value, 10)).padStart(2, '0')}"]`);
+                        if (targetItem) {
+                            setTimeout(() => targetItem.scrollIntoView({ block: 'center' }), 10);
+                        }
+                    }
                 }
                 return;
             }
@@ -1658,8 +1744,44 @@
             }
         });
 
+        // Persian Character Validation for Name Fields
+        function attachPersianNameValidator(input) {
+            if (!input || input._persianValidatorAttached) return;
+            input._persianValidatorAttached = true;
+
+            input.addEventListener('input', function() {
+                const original = this.value;
+                // Allow only Persian letters, spaces, and ZWNJ (\u200C); strip Latin letters, numbers, and symbols
+                const cleaned = original.replace(/[^ \u0600-\u06FF\u200C]|\d|[\u0660-\u0669\u06F0-\u06F9]/g, '');
+                if (original !== cleaned) {
+                    this.value = cleaned;
+                    showPersianHint(this);
+                }
+            });
+        }
+
+        function showPersianHint(input) {
+            let parent = input.closest('.col-6') || input.parentElement;
+            let hint = parent.querySelector('.persian-name-hint');
+            if (!hint) {
+                hint = document.createElement('div');
+                hint.className = 'persian-name-hint';
+                hint.textContent = 'لطفاً نام را فقط با حروف فارسی وارد فرمایید.';
+                parent.appendChild(hint);
+            }
+            hint.classList.remove('d-none');
+            clearTimeout(input._hintTimer);
+            input._hintTimer = setTimeout(() => {
+                hint.classList.add('d-none');
+            }, 2500);
+        }
+
+        function initPersianNameValidators() {
+            document.querySelectorAll('.persian-name-input').forEach(attachPersianNameValidator);
+        }
+
         // 2. Handle Role Conditional Logic
-        function handleRoleChange() {
+        function handleRoleChange(shouldScroll = true) {
             const role = document.getElementById('role').value;
             const conditionalSection = document.getElementById('conditionalSection');
             const allRoleFields = document.querySelectorAll('.role-fields');
@@ -1696,10 +1818,12 @@
                     }
                 });
 
-                // Smooth scroll to the visible section
-                setTimeout(() => {
-                    targetDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }, 100);
+                // Smooth scroll to the visible section when triggered by user change
+                if (shouldScroll) {
+                    setTimeout(() => {
+                        targetDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 100);
+                }
             }
         }
 
@@ -1806,15 +1930,16 @@
                 <div class="row g-2">
                     <div class="col-6">
                         <label class="gf-sublabel">نام <span class="req">*</span></label>
-                        <input type="text" class="gf-input ${fieldClass} owner-fname" placeholder="مثال: سارا" required>
+                        <input type="text" class="gf-input ${fieldClass} owner-fname persian-name-input" placeholder="مثال: سارا" required>
                     </div>
                     <div class="col-6">
                         <label class="gf-sublabel">نام خانوادگی <span class="req">*</span></label>
-                        <input type="text" class="gf-input ${fieldClass} owner-lname" placeholder="مثال: محمدی" required>
+                        <input type="text" class="gf-input ${fieldClass} owner-lname persian-name-input" placeholder="مثال: محمدی" required>
                     </div>
                 </div>
             `;
             container.appendChild(newOwnerBox);
+            newOwnerBox.querySelectorAll('.persian-name-input').forEach(attachPersianNameValidator);
             refreshOwnerIndexes(roleKey);
         }
 
@@ -1886,10 +2011,10 @@
             document.getElementById('surveyForm').reset();
             document.getElementById('surveyForm').classList.remove('d-none');
             document.getElementById('successCard').classList.add('d-none');
-            document.getElementById('conditionalSection').classList.add('d-none');
-            
-            document.querySelectorAll('.role-fields').forEach(el => el.classList.add('d-none'));
-            document.querySelectorAll('.or-dweller-field, .or-empty-field, .or-rented-field').forEach(el => el.removeAttribute('required'));
+
+            // Default to owner_dweller cleanly
+            document.getElementById('role').value = 'owner_dweller';
+            handleRoleChange(false);
 
             // Reset dynamic owners to 1 each
             ['dweller', 'empty', 'rented'].forEach(roleKey => {
@@ -1942,6 +2067,16 @@
                 return;
             }
 
+            // Validate Unit Size is positive number > 0
+            const unitSizeVal = parseInt(document.getElementById('unitSize').value, 10);
+            if (!unitSizeVal || unitSizeVal <= 0) {
+                alert('لطفاً متراژ واحد را به‌صورت یک عدد معتبر و بزرگتر از صفر وارد فرمایید.');
+                document.getElementById('unitSize').focus();
+                return;
+            }
+
+            const persianRegex = /^[\u0600-\u06FF\u200C\s]+$/;
+
             // Collect structured Parking entries
             const parkingEntries = [];
             document.querySelectorAll('#parkingContainer .parking-row').forEach(row => {
@@ -1990,6 +2125,13 @@
                     alert('لطفاً نام و نام خانوادگی مالک را وارد فرمایید.');
                     return;
                 }
+                for (let i = 0; i < owners.length; i++) {
+                    const o = owners[i];
+                    if (!persianRegex.test(o.firstName) || !persianRegex.test(o.lastName)) {
+                        alert(`لطفاً نام و نام خانوادگی مالک شماره ${i + 1} را صرفاً با حروف فارسی وارد فرمایید.`);
+                        return;
+                    }
+                }
                 const purchaseDate = getPickerDateString('date_picker_or_dweller');
                 if (!purchaseDate) {
                     alert('لطفاً تاریخ خرید واحد را به‌طور کامل (سال، ماه، روز) وارد فرمایید.');
@@ -2018,6 +2160,13 @@
                 if (owners.length === 0 || !owners[0].firstName || !owners[0].lastName) {
                     alert('لطفاً نام و نام خانوادگی مالک را وارد فرمایید.');
                     return;
+                }
+                for (let i = 0; i < owners.length; i++) {
+                    const o = owners[i];
+                    if (!persianRegex.test(o.firstName) || !persianRegex.test(o.lastName)) {
+                        alert(`لطفاً نام و نام خانوادگی مالک شماره ${i + 1} را صرفاً با حروف فارسی وارد فرمایید.`);
+                        return;
+                    }
                 }
                 const purchaseDate = getPickerDateString('date_picker_or_empty');
                 if (!purchaseDate) {
@@ -2048,6 +2197,13 @@
                     alert('لطفاً مشخصات مالک واحد (موجر) را وارد فرمایید.');
                     return;
                 }
+                for (let i = 0; i < owners.length; i++) {
+                    const o = owners[i];
+                    if (!persianRegex.test(o.firstName) || !persianRegex.test(o.lastName)) {
+                        alert(`لطفاً نام و نام خانوادگی مالک شماره ${i + 1} را صرفاً با حروف فارسی وارد فرمایید.`);
+                        return;
+                    }
+                }
                 const purchaseDate = getPickerDateString('date_picker_rn_owner');
                 const leaseStart = getPickerDateString('date_picker_rn_start');
                 const leaseEnd = getPickerDateString('date_picker_rn_end');
@@ -2075,9 +2231,18 @@
                 payload.purchaseDate = purchaseDate;
 
                 // Tenant details
-                const tFName = document.getElementById('rn_tenant_fname').value;
-                const tLName = document.getElementById('rn_tenant_lname').value;
+                const tFName = document.getElementById('rn_tenant_fname').value.trim();
+                const tLName = document.getElementById('rn_tenant_lname').value.trim();
                 const tPhone = document.getElementById('rn_tenant_phone').value;
+
+                if (!tFName || !tLName) {
+                    alert('لطفاً نام و نام خانوادگی مستأجر را وارد فرمایید.');
+                    return;
+                }
+                if (!persianRegex.test(tFName) || !persianRegex.test(tLName)) {
+                    alert('لطفاً نام و نام خانوادگی مستأجر را صرفاً با حروف فارسی وارد فرمایید.');
+                    return;
+                }
 
                 payload.firstName = tFName;
                 payload.lastName = tLName;
@@ -2153,6 +2318,8 @@
         // Initialize components on load
         window.addEventListener('DOMContentLoaded', () => {
             initDatePickers();
+            initPersianNameValidators();
+            handleRoleChange(false);
         });
     </script>
 </body>
