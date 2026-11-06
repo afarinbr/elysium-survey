@@ -241,9 +241,9 @@
             font-size: 13px;
         }
 
-        /* Ensure Numeric Spinner (Up/Down Arrows) is visible and styled */
-        input[type=number]::-webkit-inner-spin-button,
-        input[type=number]::-webkit-outer-spin-button {
+        /* Ensure Numeric Spinner (Up/Down Arrows) is visible only for Floor */
+        #floor::-webkit-inner-spin-button,
+        #floor::-webkit-outer-spin-button {
             opacity: 1 !important;
             height: 28px;
             cursor: pointer;
@@ -323,50 +323,109 @@
 
         /* --- 3-Part Jalali Date Picker Styling --- */
         .gf-date-wrapper {
-            background-color: #fdfdfd;
-            border: 1px solid var(--gf-border);
+            background-color: #faf9fd;
+            border: 1px solid #e2ddf0;
             border-radius: 6px;
-            padding: 12px;
+            padding: 14px 12px 12px 12px;
             margin-top: 4px;
         }
 
-        .gf-combobox {
+        .gf-date-col-inner {
             position: relative;
+            width: 100%;
         }
 
-        .gf-combobox .input-group {
-            position: relative;
+        .gf-date-input {
+            width: 100%;
+            height: 48px;
+            background-color: #ffffff;
+            border: 1px solid var(--gf-border);
+            border-radius: 4px;
+            padding: 10px 10px;
+            font-size: 14.5px;
+            font-family: inherit;
+            font-weight: 500;
+            color: var(--gf-text-dark);
+            text-align: center;
+            transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s, background-color 0.2s;
         }
 
-        .gf-combobox .dropdown-toggle-split {
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-            border-color: var(--gf-border);
-            background-color: #f8f9fa;
-            color: var(--gf-text-muted);
-            padding: 0 10px;
-        }
-
-        .gf-combobox .dropdown-toggle-split:hover {
-            background-color: var(--gf-primary-light);
-            color: var(--gf-primary);
+        .gf-date-input:focus {
             border-color: var(--gf-primary);
+            box-shadow: 0 0 0 2px rgba(103, 58, 183, 0.22);
+            background-color: #ffffff;
+            outline: none;
+        }
+
+        .gf-date-input.has-arrow {
+            padding-left: 32px;
+        }
+
+        /* Dropdown arrow inside the field */
+        .gf-date-arrow {
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gf-text-muted);
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            z-index: 2;
+            user-select: none;
+        }
+
+        .gf-date-arrow:hover {
+            color: var(--gf-primary);
+            background-color: var(--gf-primary-light);
+        }
+
+        .gf-date-arrow svg {
+            pointer-events: none;
+            transition: transform 0.2s ease;
+        }
+
+        .gf-date-col-inner.active-dropdown .gf-date-arrow svg {
+            transform: rotate(180deg);
+            color: var(--gf-primary);
+        }
+
+        /* Remove incremental increase spinners completely from date inputs */
+        .gf-date-input::-webkit-inner-spin-button,
+        .gf-date-input::-webkit-outer-spin-button,
+        .gf-date-wrapper input::-webkit-inner-spin-button,
+        .gf-date-wrapper input::-webkit-outer-spin-button {
+            -webkit-appearance: none !important;
+            margin: 0 !important;
+            display: none !important;
+        }
+
+        .gf-date-input,
+        .gf-date-wrapper input {
+            -moz-appearance: textfield !important;
         }
 
         .gf-dropdown-menu {
             position: absolute;
-            top: 100%;
+            top: calc(100% + 4px);
             right: 0;
-            z-index: 1050;
-            min-width: 150px;
-            max-height: 220px;
+            left: 0;
+            width: 100%;
+            min-width: 120px;
+            max-height: 210px;
             overflow-y: auto;
             background-color: #ffffff;
             border: 1px solid var(--gf-border);
             border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
             padding: 4px 0;
-            margin-top: 4px;
+            margin-top: 0;
+            z-index: 1050;
             display: none;
             direction: rtl;
             text-align: right;
@@ -379,13 +438,14 @@
         .gf-dropdown-item {
             display: block;
             width: 100%;
-            padding: 7px 14px;
+            padding: 7px 10px;
             clear: both;
             font-size: 13px;
             color: var(--gf-text-dark);
             text-decoration: none;
             cursor: pointer;
             transition: background-color 0.15s;
+            text-align: center;
         }
 
         .gf-dropdown-item:hover {
@@ -394,7 +454,7 @@
         }
 
         .gf-date-preview {
-            margin-top: 6px;
+            margin-top: 8px;
             font-size: 12px;
             color: var(--gf-primary);
             font-weight: 500;
@@ -936,33 +996,35 @@
                             تاریخ خرید واحد <span class="req">*</span>
                         </label>
                         <div class="gf-date-wrapper" id="date_picker_or_dweller">
-                            <div class="row g-2 align-items-center">
+                            <div class="row g-2 align-items-start">
                                 <!-- سال -->
                                 <div class="col-4">
-                                    <label class="gf-sublabel">سال</label>
-                                    <div class="gf-combobox">
-                                        <div class="input-group">
-                                            <input type="number" class="gf-input text-center j-year or-dweller-field" min="1350" max="1405" placeholder="سال">
-                                            <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
-                                        </div>
+                                    <label class="gf-sublabel text-center d-block">سال</label>
+                                    <div class="gf-date-col-inner position-relative">
+                                        <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-year or-dweller-field" minlength="4" maxlength="4" placeholder="سال" autocomplete="off">
+                                        <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب سال">
+                                            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                                        </span>
                                         <div class="gf-dropdown-menu gf-year-menu"></div>
                                     </div>
                                 </div>
                                 <!-- ماه -->
                                 <div class="col-4">
-                                    <label class="gf-sublabel">ماه</label>
-                                    <div class="gf-combobox">
-                                        <div class="input-group">
-                                            <input type="text" class="gf-input text-center j-month or-dweller-field" maxlength="2" placeholder="ماه">
-                                            <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
-                                        </div>
+                                    <label class="gf-sublabel text-center d-block">ماه</label>
+                                    <div class="gf-date-col-inner position-relative">
+                                        <input type="text" class="gf-date-input has-arrow text-center j-month or-dweller-field" maxlength="2" placeholder="ماه" autocomplete="off">
+                                        <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب ماه">
+                                            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                                        </span>
                                         <div class="gf-dropdown-menu gf-month-menu"></div>
                                     </div>
                                 </div>
                                 <!-- روز -->
                                 <div class="col-4">
-                                    <label class="gf-sublabel">روز</label>
-                                    <input type="number" class="gf-input text-center j-day or-dweller-field" min="1" max="31" step="1" placeholder="روز">
+                                    <label class="gf-sublabel text-center d-block">روز</label>
+                                    <div class="gf-date-col-inner position-relative">
+                                        <input type="text" inputmode="numeric" class="gf-date-input text-center j-day or-dweller-field" maxlength="2" placeholder="روز" autocomplete="off">
+                                    </div>
                                 </div>
                             </div>
                             <div class="gf-date-preview preview-box d-none">
@@ -1065,33 +1127,35 @@
                             تاریخ خرید واحد <span class="req">*</span>
                         </label>
                         <div class="gf-date-wrapper" id="date_picker_or_empty">
-                            <div class="row g-2 align-items-center">
+                            <div class="row g-2 align-items-start">
                                 <!-- سال -->
                                 <div class="col-4">
-                                    <label class="gf-sublabel">سال</label>
-                                    <div class="gf-combobox">
-                                        <div class="input-group">
-                                            <input type="number" class="gf-input text-center j-year or-empty-field" min="1350" max="1405" placeholder="سال">
-                                            <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
-                                        </div>
+                                    <label class="gf-sublabel text-center d-block">سال</label>
+                                    <div class="gf-date-col-inner position-relative">
+                                        <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-year or-empty-field" minlength="4" maxlength="4" placeholder="سال" autocomplete="off">
+                                        <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب سال">
+                                            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                                        </span>
                                         <div class="gf-dropdown-menu gf-year-menu"></div>
                                     </div>
                                 </div>
                                 <!-- ماه -->
                                 <div class="col-4">
-                                    <label class="gf-sublabel">ماه</label>
-                                    <div class="gf-combobox">
-                                        <div class="input-group">
-                                            <input type="text" class="gf-input text-center j-month or-empty-field" maxlength="2" placeholder="ماه">
-                                            <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
-                                        </div>
+                                    <label class="gf-sublabel text-center d-block">ماه</label>
+                                    <div class="gf-date-col-inner position-relative">
+                                        <input type="text" class="gf-date-input has-arrow text-center j-month or-empty-field" maxlength="2" placeholder="ماه" autocomplete="off">
+                                        <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب ماه">
+                                            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                                        </span>
                                         <div class="gf-dropdown-menu gf-month-menu"></div>
                                     </div>
                                 </div>
                                 <!-- روز -->
                                 <div class="col-4">
-                                    <label class="gf-sublabel">روز</label>
-                                    <input type="number" class="gf-input text-center j-day or-empty-field" min="1" max="31" step="1" placeholder="روز">
+                                    <label class="gf-sublabel text-center d-block">روز</label>
+                                    <div class="gf-date-col-inner position-relative">
+                                        <input type="text" inputmode="numeric" class="gf-date-input text-center j-day or-empty-field" maxlength="2" placeholder="روز" autocomplete="off">
+                                    </div>
                                 </div>
                             </div>
                             <div class="gf-date-preview preview-box d-none">
@@ -1196,33 +1260,35 @@
                                 تاریخ خرید واحد <span class="req">*</span>
                             </label>
                             <div class="gf-date-wrapper" id="date_picker_rn_owner">
-                                <div class="row g-2 align-items-center">
+                                <div class="row g-2 align-items-start">
                                     <!-- سال -->
                                     <div class="col-4">
-                                        <label class="gf-sublabel">سال</label>
-                                        <div class="gf-combobox">
-                                            <div class="input-group">
-                                                <input type="number" class="gf-input text-center j-year or-rented-field" min="1350" max="1405" placeholder="سال">
-                                                <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
-                                            </div>
+                                        <label class="gf-sublabel text-center d-block">سال</label>
+                                        <div class="gf-date-col-inner position-relative">
+                                            <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-year or-rented-field" minlength="4" maxlength="4" placeholder="سال" autocomplete="off">
+                                            <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب سال">
+                                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                                            </span>
                                             <div class="gf-dropdown-menu gf-year-menu"></div>
                                         </div>
                                     </div>
                                     <!-- ماه -->
                                     <div class="col-4">
-                                        <label class="gf-sublabel">ماه</label>
-                                        <div class="gf-combobox">
-                                            <div class="input-group">
-                                                <input type="text" class="gf-input text-center j-month or-rented-field" maxlength="2" placeholder="ماه">
-                                                <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
-                                            </div>
+                                        <label class="gf-sublabel text-center d-block">ماه</label>
+                                        <div class="gf-date-col-inner position-relative">
+                                            <input type="text" class="gf-date-input has-arrow text-center j-month or-rented-field" maxlength="2" placeholder="ماه" autocomplete="off">
+                                            <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب ماه">
+                                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                                            </span>
                                             <div class="gf-dropdown-menu gf-month-menu"></div>
                                         </div>
                                     </div>
                                     <!-- روز -->
                                     <div class="col-4">
-                                        <label class="gf-sublabel">روز</label>
-                                        <input type="number" class="gf-input text-center j-day or-rented-field" min="1" max="31" step="1" placeholder="روز">
+                                        <label class="gf-sublabel text-center d-block">روز</label>
+                                        <div class="gf-date-col-inner position-relative">
+                                            <input type="text" inputmode="numeric" class="gf-date-input text-center j-day or-rented-field" maxlength="2" placeholder="روز" autocomplete="off">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="gf-date-preview preview-box d-none">
@@ -1281,33 +1347,35 @@
                                 تاریخ شروع قرارداد اجاره <span class="req">*</span>
                             </label>
                             <div class="gf-date-wrapper" id="date_picker_rn_start">
-                                <div class="row g-2 align-items-center">
+                                <div class="row g-2 align-items-start">
                                     <!-- سال -->
                                     <div class="col-4">
-                                        <label class="gf-sublabel">سال</label>
-                                        <div class="gf-combobox">
-                                            <div class="input-group">
-                                                <input type="number" class="gf-input text-center j-year or-rented-field" min="1350" max="1405" placeholder="سال">
-                                                <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
-                                            </div>
+                                        <label class="gf-sublabel text-center d-block">سال</label>
+                                        <div class="gf-date-col-inner position-relative">
+                                            <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-year or-rented-field" minlength="4" maxlength="4" placeholder="سال" autocomplete="off">
+                                            <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب سال">
+                                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                                            </span>
                                             <div class="gf-dropdown-menu gf-year-menu"></div>
                                         </div>
                                     </div>
                                     <!-- ماه -->
                                     <div class="col-4">
-                                        <label class="gf-sublabel">ماه</label>
-                                        <div class="gf-combobox">
-                                            <div class="input-group">
-                                                <input type="text" class="gf-input text-center j-month or-rented-field" maxlength="2" placeholder="ماه">
-                                                <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
-                                            </div>
+                                        <label class="gf-sublabel text-center d-block">ماه</label>
+                                        <div class="gf-date-col-inner position-relative">
+                                            <input type="text" class="gf-date-input has-arrow text-center j-month or-rented-field" maxlength="2" placeholder="ماه" autocomplete="off">
+                                            <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب ماه">
+                                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                                            </span>
                                             <div class="gf-dropdown-menu gf-month-menu"></div>
                                         </div>
                                     </div>
                                     <!-- روز -->
                                     <div class="col-4">
-                                        <label class="gf-sublabel">روز</label>
-                                        <input type="number" class="gf-input text-center j-day or-rented-field" min="1" max="31" step="1" placeholder="روز">
+                                        <label class="gf-sublabel text-center d-block">روز</label>
+                                        <div class="gf-date-col-inner position-relative">
+                                            <input type="text" inputmode="numeric" class="gf-date-input text-center j-day or-rented-field" maxlength="2" placeholder="روز" autocomplete="off">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="gf-date-preview preview-box d-none">
@@ -1323,33 +1391,35 @@
                                 تاریخ پایان قرارداد اجاره <span class="req">*</span>
                             </label>
                             <div class="gf-date-wrapper" id="date_picker_rn_end">
-                                <div class="row g-2 align-items-center">
+                                <div class="row g-2 align-items-start">
                                     <!-- سال -->
                                     <div class="col-4">
-                                        <label class="gf-sublabel">سال</label>
-                                        <div class="gf-combobox">
-                                            <div class="input-group">
-                                                <input type="number" class="gf-input text-center j-year or-rented-field" min="1350" max="1405" placeholder="سال">
-                                                <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
-                                            </div>
+                                        <label class="gf-sublabel text-center d-block">سال</label>
+                                        <div class="gf-date-col-inner position-relative">
+                                            <input type="text" inputmode="numeric" class="gf-date-input has-arrow text-center j-year or-rented-field" minlength="4" maxlength="4" placeholder="سال" autocomplete="off">
+                                            <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب سال">
+                                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                                            </span>
                                             <div class="gf-dropdown-menu gf-year-menu"></div>
                                         </div>
                                     </div>
                                     <!-- ماه -->
                                     <div class="col-4">
-                                        <label class="gf-sublabel">ماه</label>
-                                        <div class="gf-combobox">
-                                            <div class="input-group">
-                                                <input type="text" class="gf-input text-center j-month or-rented-field" maxlength="2" placeholder="ماه">
-                                                <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
-                                            </div>
+                                        <label class="gf-sublabel text-center d-block">ماه</label>
+                                        <div class="gf-date-col-inner position-relative">
+                                            <input type="text" class="gf-date-input has-arrow text-center j-month or-rented-field" maxlength="2" placeholder="ماه" autocomplete="off">
+                                            <span class="gf-date-arrow gf-dd-toggle" role="button" tabindex="0" title="انتخاب ماه">
+                                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                                            </span>
                                             <div class="gf-dropdown-menu gf-month-menu"></div>
                                         </div>
                                     </div>
                                     <!-- روز -->
                                     <div class="col-4">
-                                        <label class="gf-sublabel">روز</label>
-                                        <input type="number" class="gf-input text-center j-day or-rented-field" min="1" max="31" step="1" placeholder="روز">
+                                        <label class="gf-sublabel text-center d-block">روز</label>
+                                        <div class="gf-date-col-inner position-relative">
+                                            <input type="text" inputmode="numeric" class="gf-date-input text-center j-day or-rented-field" maxlength="2" placeholder="روز" autocomplete="off">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="gf-date-preview preview-box d-none">
@@ -1451,8 +1521,23 @@
                     }
                 });
 
+                // Restrict Year input to digits only
+                if (yearInput) {
+                    yearInput.addEventListener('input', function() {
+                        this.value = this.value.replace(/[^0-9]/g, '');
+                    });
+                }
+
                 // Auto-convert Persian month name typed into numeric month
                 if (monthInput) {
+                    monthInput.addEventListener('input', function() {
+                        // If typed numeric digits, allow typing up to 12
+                        if (/^\d+$/.test(this.value.trim())) {
+                            let n = parseInt(this.value.trim(), 10);
+                            if (n > 12) this.value = '12';
+                        }
+                    });
+
                     monthInput.addEventListener('blur', function() {
                         const val = this.value.trim();
                         if (!val) return;
@@ -1473,9 +1558,17 @@
                 // Restrict Day input between 1 and 31
                 if (dayInput) {
                     dayInput.addEventListener('input', function() {
+                        this.value = this.value.replace(/[^0-9]/g, '');
                         let d = parseInt(this.value, 10);
-                        if (d > 31) this.value = 31;
-                        if (d < 1 && this.value !== '') this.value = 1;
+                        if (d > 31) this.value = '31';
+                        if (d < 1 && this.value !== '') this.value = '1';
+                    });
+                    dayInput.addEventListener('blur', function() {
+                        let d = parseInt(this.value, 10);
+                        if (!isNaN(d) && d >= 1 && d <= 31) {
+                            this.value = String(d).padStart(2, '0');
+                        }
+                        updateDatePreview(wrapper);
                     });
                 }
             });
@@ -1513,18 +1606,25 @@
             return `${y}/${String(m).padStart(2, '0')}/${String(d).padStart(2, '0')}`;
         }
 
-        // Global dropdown toggle handling (Accessible, lightweight, robust)
+        // Global dropdown toggle handling (Inner field arrow, accessible & lightweight)
         document.addEventListener('click', function(e) {
             const toggleBtn = e.target.closest('.gf-dd-toggle');
             if (toggleBtn) {
                 e.preventDefault();
-                const combobox = toggleBtn.closest('.gf-combobox');
-                const menu = combobox.querySelector('.gf-dropdown-menu');
+                e.stopPropagation();
+                const colInner = toggleBtn.closest('.gf-date-col-inner');
+                if (!colInner) return;
+                const menu = colInner.querySelector('.gf-dropdown-menu');
+                if (!menu) return;
                 const isOpen = menu.classList.contains('show');
-                // Close all other dropdowns
-                document.querySelectorAll('.gf-dropdown-menu.show').forEach(m => m.classList.remove('show'));
+                // Close all other open dropdowns
+                document.querySelectorAll('.gf-dropdown-menu.show').forEach(m => {
+                    m.classList.remove('show');
+                    m.closest('.gf-date-col-inner')?.classList.remove('active-dropdown');
+                });
                 if (!isOpen) {
                     menu.classList.add('show');
+                    colInner.classList.add('active-dropdown');
                 }
                 return;
             }
@@ -1534,21 +1634,27 @@
             if (item) {
                 e.preventDefault();
                 const val = item.getAttribute('data-val');
-                const combobox = item.closest('.gf-combobox');
-                const input = combobox.querySelector('.gf-input');
-                if (input && val) {
-                    input.value = val;
-                    input.dispatchEvent(new Event('input', { bubbles: true }));
-                    input.dispatchEvent(new Event('change', { bubbles: true }));
+                const colInner = item.closest('.gf-date-col-inner');
+                if (colInner) {
+                    const input = colInner.querySelector('.gf-date-input');
+                    if (input && val) {
+                        input.value = val;
+                        input.dispatchEvent(new Event('input', { bubbles: true }));
+                        input.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                    const menu = colInner.querySelector('.gf-dropdown-menu');
+                    if (menu) menu.classList.remove('show');
+                    colInner.classList.remove('active-dropdown');
                 }
-                const menu = combobox.querySelector('.gf-dropdown-menu');
-                menu.classList.remove('show');
                 return;
             }
 
             // Click outside -> close open dropdowns
-            if (!e.target.closest('.gf-combobox')) {
-                document.querySelectorAll('.gf-dropdown-menu.show').forEach(m => m.classList.remove('show'));
+            if (!e.target.closest('.gf-date-col-inner')) {
+                document.querySelectorAll('.gf-dropdown-menu.show').forEach(m => {
+                    m.classList.remove('show');
+                    m.closest('.gf-date-col-inner')?.classList.remove('active-dropdown');
+                });
             }
         });
 
