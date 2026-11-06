@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فرم اطلاعات ساکنین مجتمع الیزیوم</title>
+    <title>فرم اطلاعات جامع ساکنین و مالکین مجتمع مسکونی الیزیوم</title>
     <!-- Google Fonts: Vazirmatn -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +17,7 @@
             --gf-primary-hover: #5b32a3;
             --gf-primary-active: #512da8;
             --gf-primary-light: #ede7f6;
+            --gf-primary-light-2: #f4effa;
             --gf-bg: #f0ebf8;
             --gf-card-bg: #ffffff;
             --gf-border: #dadce0;
@@ -24,6 +25,7 @@
             --gf-text-dark: #202124;
             --gf-text-muted: #5f6368;
             --gf-required: #d93025;
+            --gf-success: #137333;
             --gf-shadow-sm: 0 1px 3px rgba(60, 64, 67, 0.12), 0 1px 2px rgba(60, 64, 67, 0.24);
             --gf-shadow-card: 0 1px 2px rgba(60, 64, 67, 0.1), 0 1px 3px rgba(60, 64, 67, 0.08);
             --gf-shadow-active: 0 2px 6px rgba(103, 58, 183, 0.18), 0 1px 3px rgba(60, 64, 67, 0.12);
@@ -83,7 +85,7 @@
         }
 
         .gf-header-title {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
             line-height: 1.35;
             color: var(--gf-text-dark);
@@ -92,7 +94,7 @@
         }
 
         .gf-header-description {
-            font-size: 14.5px;
+            font-size: 14px;
             line-height: 1.7;
             color: var(--gf-text-muted);
             margin: 0 0 16px 0;
@@ -100,7 +102,7 @@
 
         .gf-divider {
             border-top: 1px solid var(--gf-border);
-            margin: 16px 0 12px 0;
+            margin: 16px 0 14px 0;
         }
 
         .gf-required-legend {
@@ -171,9 +173,9 @@
         .gf-label {
             display: block;
             font-size: 14.5px;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--gf-text-dark);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             line-height: 1.4;
         }
 
@@ -183,10 +185,18 @@
             margin-right: 3px;
         }
 
-        .gf-help {
-            font-size: 12.5px;
+        .gf-sublabel {
+            display: block;
+            font-size: 12px;
+            font-weight: 500;
             color: var(--gf-text-muted);
-            margin-top: 6px;
+            margin-bottom: 4px;
+        }
+
+        .gf-help {
+            font-size: 12px;
+            color: var(--gf-text-muted);
+            margin-top: 5px;
             line-height: 1.45;
         }
 
@@ -201,7 +211,7 @@
             border: 1px solid var(--gf-border);
             border-radius: 4px;
             padding: 10px 14px;
-            font-size: 14.5px;
+            font-size: 14px;
             font-family: inherit;
             color: var(--gf-text-dark);
             transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
@@ -228,7 +238,169 @@
 
         .gf-input::placeholder {
             color: #80868b;
-            font-size: 13.5px;
+            font-size: 13px;
+        }
+
+        /* Ensure Numeric Spinner (Up/Down Arrows) is visible and styled */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            opacity: 1 !important;
+            height: 28px;
+            cursor: pointer;
+        }
+
+        /* --- Custom Buttons --- */
+        .gf-btn-add {
+            background-color: #ffffff;
+            color: var(--gf-primary);
+            border: 1px dashed var(--gf-primary);
+            border-radius: 4px;
+            padding: 7px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .gf-btn-add:hover {
+            background-color: var(--gf-primary-light);
+            border-style: solid;
+            color: var(--gf-primary-hover);
+        }
+
+        .gf-btn-remove {
+            color: #d93025;
+            background: #fdf2f2;
+            border: 1px solid #fad2cf;
+            border-radius: 4px;
+            width: 36px;
+            height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .gf-btn-remove:hover {
+            background-color: #d93025;
+            color: #ffffff;
+            border-color: #d93025;
+        }
+
+        /* --- Dynamic Rows & Owners Card Box --- */
+        .gf-owner-box {
+            background-color: #faf9fd;
+            border: 1px solid #e2ddf0;
+            border-radius: 6px;
+            padding: 14px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .gf-owner-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .gf-owner-badge {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gf-primary);
+            background-color: var(--gf-primary-light);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .gf-dynamic-row {
+            margin-bottom: 10px;
+        }
+
+        /* --- 3-Part Jalali Date Picker Styling --- */
+        .gf-date-wrapper {
+            background-color: #fdfdfd;
+            border: 1px solid var(--gf-border);
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 4px;
+        }
+
+        .gf-combobox {
+            position: relative;
+        }
+
+        .gf-combobox .input-group {
+            position: relative;
+        }
+
+        .gf-combobox .dropdown-toggle-split {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-color: var(--gf-border);
+            background-color: #f8f9fa;
+            color: var(--gf-text-muted);
+            padding: 0 10px;
+        }
+
+        .gf-combobox .dropdown-toggle-split:hover {
+            background-color: var(--gf-primary-light);
+            color: var(--gf-primary);
+            border-color: var(--gf-primary);
+        }
+
+        .gf-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            z-index: 1050;
+            min-width: 150px;
+            max-height: 220px;
+            overflow-y: auto;
+            background-color: #ffffff;
+            border: 1px solid var(--gf-border);
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            padding: 4px 0;
+            margin-top: 4px;
+            display: none;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .gf-dropdown-menu.show {
+            display: block;
+        }
+
+        .gf-dropdown-item {
+            display: block;
+            width: 100%;
+            padding: 7px 14px;
+            clear: both;
+            font-size: 13px;
+            color: var(--gf-text-dark);
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.15s;
+        }
+
+        .gf-dropdown-item:hover {
+            background-color: var(--gf-primary-light);
+            color: var(--gf-primary);
+        }
+
+        .gf-date-preview {
+            margin-top: 6px;
+            font-size: 12px;
+            color: var(--gf-primary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         /* Custom File Upload Styling (Google Forms look) */
@@ -280,19 +452,19 @@
         }
 
         .gf-file-status.has-file {
-            color: #137333;
-            font-weight: 500;
+            color: var(--gf-success);
+            font-weight: 600;
         }
 
         /* --- Conditional Animation --- */
         .animate-gf-slide {
-            animation: gfSlideFadeIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: gfSlideFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         @keyframes gfSlideFadeIn {
             0% {
                 opacity: 0;
-                transform: translateY(-14px);
+                transform: translateY(-12px);
             }
             100% {
                 opacity: 1;
@@ -363,7 +535,7 @@
             background-color: var(--gf-primary-light);
         }
 
-        /* Centered Loading Spinner */
+        /* Loading Spinner */
         .gf-spinner {
             width: 18px;
             height: 18px;
@@ -384,11 +556,6 @@
             color: var(--gf-text-muted);
             margin-top: 32px;
             line-height: 1.6;
-        }
-
-        .gf-footer a {
-            color: var(--gf-text-muted);
-            text-decoration: underline;
         }
 
         /* --- Success Screen --- */
@@ -448,10 +615,10 @@
                 padding: 20px 18px 18px 18px;
             }
             .gf-header-title {
-                font-size: 23px;
+                font-size: 22px;
             }
             .gf-card {
-                padding: 18px 16px;
+                padding: 18px 14px;
             }
             .gf-actions-card {
                 flex-direction: column-reverse;
@@ -479,7 +646,7 @@
                 اطلاعات شما با موفقیت در سامانه مجتمع مسکونی الیزیوم ثبت شد.
             </p>
             <p class="gf-help" style="margin-bottom: 20px;">
-                از همکاری صمیمانه شما در به‌روزآوری بانک اطلاعاتی مجتمع بسیار سپاسگزاریم.
+                از همکاری صمیمانه شما در به‌روزآوری بانک جامع اطلاعاتی مجتمع بسیار سپاسگزاریم.
             </p>
             <hr class="gf-divider">
             <button type="button" class="gf-btn-new-response" onclick="resetFormToStart()">
@@ -535,13 +702,15 @@
                         <label class="gf-label" for="floor">
                             طبقه <span class="req">*</span>
                         </label>
-                        <input type="text" class="gf-input" id="floor" placeholder="مثال: ۱ یا همکف" required>
+                        <!-- Floor: Numeric spinner only, minimum 0, positive numbers only -->
+                        <input type="number" class="gf-input" id="floor" placeholder="مثال: ۲" min="0" step="1" required oninput="if(this.value < 0) this.value = 0;" onkeydown="if(event.key === '-' || event.key === 'e') event.preventDefault();">
+                        <div class="gf-help">فقط عدد (۰ برای همکف، ۱، ۲، ...)</div>
                     </div>
                     <div class="col-md-6 gf-field-group">
                         <label class="gf-label" for="unitNumber">
                             شماره واحد (با عدد) <span class="req">*</span>
                         </label>
-                        <input type="number" class="gf-input" id="unitNumber" placeholder="مثال: 12" required>
+                        <input type="number" class="gf-input" id="unitNumber" placeholder="مثال: 12" min="1" required>
                     </div>
                 </div>
             </div>
@@ -571,32 +740,96 @@
                 </div>
             </div>
 
-            <!-- SECTION CARD 3: پارکینگ و انبار -->
+            <!-- SECTION CARD 3: اطلاعات پارکینگ و انبار (چندگانه) -->
             <div class="gf-card">
                 <div class="gf-card-section-title">
                     <span>اطلاعات پارکینگ و انبار</span>
                 </div>
                 <div class="gf-card-section-desc">
-                    شماره‌های اختصاص‌یافته در سند یا صورت‌جلسه تحویل
+                    شماره‌های اختصاص‌یافته در سند یا صورت‌جلسه تحویل به همراه طبقه استقرار
                 </div>
 
-                <div class="row g-3">
-                    <div class="col-md-6 gf-field-group">
-                        <label class="gf-label" for="parkingNumber">
-                            شماره پارکینگ <span class="req">*</span>
-                        </label>
-                        <input type="text" class="gf-input" id="parkingNumber" placeholder="مثال: P-14 یا ندارد" required>
+                <!-- بخش پارکینگ -->
+                <div class="gf-field-group">
+                    <label class="gf-label">
+                        اطلاعات پارکینگ
+                    </label>
+                    <div id="parkingContainer">
+                        <!-- ردیف ۱ پارکینگ -->
+                        <div class="gf-dynamic-row parking-row">
+                            <div class="row g-2 align-items-center">
+                                <div class="col-7">
+                                    <label class="gf-sublabel">شماره پارکینگ (فقط عدد)</label>
+                                    <input type="number" class="gf-input parking-number" min="1" placeholder="مثال: 14">
+                                </div>
+                                <div class="col-4">
+                                    <label class="gf-sublabel">طبقه / سطح</label>
+                                    <select class="gf-select parking-level">
+                                        <option value="P1">P1 (طبقه ۱-)</option>
+                                        <option value="P2">P2 (طبقه ۲-)</option>
+                                        <option value="P3">P3 (طبقه ۳-)</option>
+                                    </select>
+                                </div>
+                                <div class="col-1 text-center pt-3">
+                                    <button type="button" class="gf-btn-remove parking-remove-btn d-none" onclick="removeDynamicEntry(this, '#parkingContainer', '.parking-row', '.parking-remove-btn')" title="حذف این پارکینگ">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6 gf-field-group">
-                        <label class="gf-label" for="storageNumber">
-                            شماره انبار <span class="req">*</span>
-                        </label>
-                        <input type="text" class="gf-input" id="storageNumber" placeholder="مثال: S-08 یا ندارد" required>
+                    <div class="mt-2">
+                        <button type="button" class="gf-btn-add" onclick="addParkingRow()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                            افزودن پارکینگ دیگر
+                        </button>
                     </div>
+                    <div class="gf-help">در صورت نداشتن پارکینگ، فیلد شماره را خالی بگذارید.</div>
+                </div>
+
+                <div class="gf-divider"></div>
+
+                <!-- بخش انبار -->
+                <div class="gf-field-group">
+                    <label class="gf-label">
+                        اطلاعات انبار
+                    </label>
+                    <div id="storageContainer">
+                        <!-- ردیف ۱ انبار -->
+                        <div class="gf-dynamic-row storage-row">
+                            <div class="row g-2 align-items-center">
+                                <div class="col-7">
+                                    <label class="gf-sublabel">شماره انبار (فقط عدد)</label>
+                                    <input type="number" class="gf-input storage-number" min="1" placeholder="مثال: 8">
+                                </div>
+                                <div class="col-4">
+                                    <label class="gf-sublabel">طبقه / سطح</label>
+                                    <select class="gf-select storage-level">
+                                        <option value="P1">P1 (طبقه ۱-)</option>
+                                        <option value="P2">P2 (طبقه ۲-)</option>
+                                        <option value="P3">P3 (طبقه ۳-)</option>
+                                        <option value="همکف">همکف</option>
+                                    </select>
+                                </div>
+                                <div class="col-1 text-center pt-3">
+                                    <button type="button" class="gf-btn-remove storage-remove-btn d-none" onclick="removeDynamicEntry(this, '#storageContainer', '.storage-row', '.storage-remove-btn')" title="حذف این انبار">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <button type="button" class="gf-btn-add" onclick="addStorageRow()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                            افزودن انبار دیگر
+                        </button>
+                    </div>
+                    <div class="gf-help">در صورت نداشتن انبار، فیلد شماره را خالی بگذارید.</div>
                 </div>
             </div>
 
-            <!-- SECTION CARD 4: نقش در مجتمع -->
+            <!-- SECTION CARD 4: نقش در مجتمع (۳ گزینه مالکیتی به‌روزرسانی شده) -->
             <div class="gf-card" id="cardRole">
                 <div class="gf-card-section-title">
                     <span>نقش و وضعیت سکونت در مجتمع</span>
@@ -607,61 +840,81 @@
 
                 <div class="gf-field-group">
                     <label class="gf-label" for="role">
-                        نقش شما در این مجتمع (الیزیوم) چیست؟ <span class="req">*</span>
+                        نقش و وضعیت سکونت در مجتمع الیزیوم <span class="req">*</span>
                     </label>
                     <select class="gf-select" id="role" required onchange="handleRoleChange()">
                         <option value="">انتخاب کنید...</option>
-                        <option value="owner_dweller">مالک هستم و در واحد سکونت دارم</option>
-                        <option value="tenant">مستأجر هستم و در واحد سکونت دارم</option>
-                        <option value="owner_non_resident">مالک هستم اما در واحد سکونت ندارم</option>
+                        <option value="owner_dweller">مالک هستم و در واحد سکونت دارم (owner_dweller)</option>
+                        <option value="owner_empty">مالک هستم اما واحد در حال حاضر خالی است (owner_empty)</option>
+                        <option value="owner_rented">مالک هستم و واحد اجاره داده شده است (owner_rented)</option>
                     </select>
                     <div class="gf-help">
-                        با انتخاب هر گزینه، کارت اطلاعات تکمیلی مربوط به همان نقش نمایش داده می‌شود.
+                        با انتخاب هر گزینه، کارت‌های اطلاعات تکمیلی مربوط به آن وضعیت نمایش داده می‌شوند.
                     </div>
                 </div>
             </div>
 
             <!-- SECTION 5: CONDITIONAL DYNAMIC CARDS -->
             <div id="conditionalSection" class="d-none">
-                
-                <!-- 5.A: OWNER DWELLER CARD -->
+
+                <!-- ========================================== -->
+                <!-- 5.A: CONDITIONAL CARD 1 (owner_dweller)    -->
+                <!-- ========================================== -->
                 <div id="fields_owner_dweller" class="role-fields gf-card d-none">
-                    <div class="gf-section-badge">بخش ۲ از ۲ • تکمیلی</div>
+                    <div class="gf-section-badge">بخش ۲ از ۲ • اطلاعات مالک ساکن</div>
                     <div class="gf-card-section-title">
-                        <span>اطلاعات مالک ساکن</span>
+                        <span>اطلاعات مالک و سکونت در واحد</span>
                     </div>
                     <div class="gf-card-section-desc">
-                        لطفاً مشخصات هویتی و مالکیتی خود را با دقت ثبت نمایید.
+                        مشخصات هویتی مالک(ین)، تعداد ساکنین و مدارک مالکیت
                     </div>
 
-                    <div class="row g-3">
-                        <div class="col-md-6 gf-field-group">
-                            <label class="gf-label" for="or_firstName">
-                                نام مالک <span class="req">*</span>
-                            </label>
-                            <input type="text" class="gf-input or-field" id="or_firstName">
-                        </div>
-                        <div class="col-md-6 gf-field-group">
-                            <label class="gf-label" for="or_lastName">
-                                نام خانوادگی مالک <span class="req">*</span>
-                            </label>
-                            <input type="text" class="gf-input or-field" id="or_lastName">
-                        </div>
-                    </div>
-
+                    <!-- بخش مالکین (با قابلیت افزودن شریک/دانگ) -->
                     <div class="gf-field-group">
-                        <label class="gf-label" for="or_phone">
+                        <label class="gf-label">
+                            مشخصات مالک / مالکین واحد <span class="req">*</span>
+                        </label>
+                        <div id="owners_container_dweller">
+                            <div class="gf-owner-box owner-entry" data-index="1">
+                                <div class="gf-owner-header">
+                                    <span class="gf-owner-badge owner-idx-badge">مالک ۱ (اصلی)</span>
+                                    <button type="button" class="btn btn-sm btn-link text-danger p-0 owner-remove-btn d-none" onclick="removeOwnerRow(this, 'dweller')">حذف این مالک</button>
+                                </div>
+                                <div class="row g-2">
+                                    <div class="col-6">
+                                        <label class="gf-sublabel">نام <span class="req">*</span></label>
+                                        <input type="text" class="gf-input or-dweller-field owner-fname" placeholder="مثال: علی">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="gf-sublabel">نام خانوادگی <span class="req">*</span></label>
+                                        <input type="text" class="gf-input or-dweller-field owner-lname" placeholder="مثال: محمدی">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <button type="button" class="gf-btn-add" onclick="addOwnerRow('dweller')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                                افزودن مالک دیگر (شریک / دانگ)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- شماره تماس مالک -->
+                    <div class="gf-field-group">
+                        <label class="gf-label" for="or_dweller_phone">
                             شماره همراه مالک <span class="req">*</span>
                         </label>
-                        <input type="tel" class="gf-input or-field" id="or_phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" dir="ltr">
-                        <div class="gf-help">جهت هماهنگی‌های پیامکی و اطلاعیه‌های مهم مدیریت مجتمع</div>
+                        <input type="tel" class="gf-input or-dweller-field" id="or_dweller_phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" dir="ltr">
+                        <div class="gf-help">جهت هماهنگی‌های پیامکی و اطلاعیه‌های مهم مجتمع</div>
                     </div>
 
+                    <!-- نوع مالکیت -->
                     <div class="gf-field-group">
-                        <label class="gf-label" for="or_ownership">
+                        <label class="gf-label" for="or_dweller_ownership">
                             نوع مالکیت <span class="req">*</span>
                         </label>
-                        <select class="gf-select or-field" id="or_ownership">
+                        <select class="gf-select or-dweller-field" id="or_dweller_ownership">
                             <option value="">انتخاب کنید...</option>
                             <option value="تعاونی پزشکان">تعاونی پزشکان</option>
                             <option value="بنیاد کشاورزی">بنیاد کشاورزی</option>
@@ -669,172 +922,136 @@
                         </select>
                     </div>
 
-                    <div class="row g-3">
-                        <div class="col-md-6 gf-field-group">
-                            <label class="gf-label" for="or_occupants">
-                                تعداد ساکنین واحد <span class="req">*</span>
-                            </label>
-                            <input type="number" class="gf-input or-field" id="or_occupants" placeholder="تعداد نفرات" min="1">
-                        </div>
-                        <div class="col-md-6 gf-field-group">
-                            <label class="gf-label" for="or_date">
-                                تاریخ خرید واحد <span class="req">*</span>
-                            </label>
-                            <input type="text" class="gf-input or-field" id="or_date" placeholder="مثال: 1403/02/15">
+                    <!-- تعداد ساکنین (فقط عدد مثبت) -->
+                    <div class="gf-field-group">
+                        <label class="gf-label" for="or_dweller_occupants">
+                            تعداد ساکنین واحد <span class="req">*</span>
+                        </label>
+                        <input type="number" class="gf-input or-dweller-field" id="or_dweller_occupants" placeholder="تعداد نفرات (فقط عدد مثبت)" min="1" step="1" oninput="if(this.value < 1 && this.value !== '') this.value = 1;">
+                    </div>
+
+                    <!-- تاریخ خرید واحد (۳ بخشی شمسی) -->
+                    <div class="gf-field-group">
+                        <label class="gf-label">
+                            تاریخ خرید واحد <span class="req">*</span>
+                        </label>
+                        <div class="gf-date-wrapper" id="date_picker_or_dweller">
+                            <div class="row g-2 align-items-center">
+                                <!-- سال -->
+                                <div class="col-4">
+                                    <label class="gf-sublabel">سال</label>
+                                    <div class="gf-combobox">
+                                        <div class="input-group">
+                                            <input type="number" class="gf-input text-center j-year or-dweller-field" min="1350" max="1405" placeholder="سال">
+                                            <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
+                                        </div>
+                                        <div class="gf-dropdown-menu gf-year-menu"></div>
+                                    </div>
+                                </div>
+                                <!-- ماه -->
+                                <div class="col-4">
+                                    <label class="gf-sublabel">ماه</label>
+                                    <div class="gf-combobox">
+                                        <div class="input-group">
+                                            <input type="text" class="gf-input text-center j-month or-dweller-field" maxlength="2" placeholder="ماه">
+                                            <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
+                                        </div>
+                                        <div class="gf-dropdown-menu gf-month-menu"></div>
+                                    </div>
+                                </div>
+                                <!-- روز -->
+                                <div class="col-4">
+                                    <label class="gf-sublabel">روز</label>
+                                    <input type="number" class="gf-input text-center j-day or-dweller-field" min="1" max="31" step="1" placeholder="روز">
+                                </div>
+                            </div>
+                            <div class="gf-date-preview preview-box d-none">
+                                <span>📅 تاریخ انتخابی:</span>
+                                <strong class="preview-text"></strong>
+                            </div>
                         </div>
                     </div>
 
+                    <!-- مدرک مالکیت -->
                     <div class="gf-field-group">
-                        <label class="gf-label" for="or_file">
-                            مستند مالکیت (تصویر صفحه اول سند یا مدرک) <span class="req">*</span>
+                        <label class="gf-label" for="or_dweller_file">
+                            مستند مالکیت (تصویر صفحه اول سند یا مدرک واگذاری) <span class="req">*</span>
                         </label>
                         <div class="gf-file-wrapper">
-                            <label for="or_file" class="gf-file-btn">
+                            <label for="or_dweller_file" class="gf-file-btn">
                                 <svg viewBox="0 0 24 24">
                                     <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
                                 </svg>
                                 <span>افزودن فایل</span>
                             </label>
-                            <span class="gf-file-status" id="or_file_status">فایلی انتخاب نشده است</span>
-                            <input type="file" class="d-none or-field" id="or_file" accept=".pdf,image/*" onchange="updateFileName(this, 'or_file_status')">
+                            <span class="gf-file-status" id="or_dweller_file_status">فایلی انتخاب نشده است</span>
+                            <input type="file" class="d-none or-dweller-field" id="or_dweller_file" accept=".pdf,image/*" onchange="updateFileName(this, 'or_dweller_file_status')">
                         </div>
                         <div class="gf-help">
-                            🔒 امنیت اسناد کاملاً تضمین شده است. صرفاً تصویر صفحه‌ای که نام مالک در آن درج شده کفایت می‌کند.
+                            🔒 امنیت اسناد کاملاً تضمین شده است. صرفاً تصویر صفحه‌ای که نام مالک و واحد در آن درج شده کفایت می‌کند.
                         </div>
                     </div>
                 </div>
 
-                <!-- 5.B: TENANT CARD -->
-                <div id="fields_tenant" class="role-fields gf-card d-none">
-                    <div class="gf-section-badge">بخش ۲ از ۲ • تکمیلی</div>
+
+                <!-- ========================================== -->
+                <!-- 5.B: CONDITIONAL CARD 2 (owner_empty)      -->
+                <!-- ========================================== -->
+                <div id="fields_owner_empty" class="role-fields gf-card d-none">
+                    <div class="gf-section-badge">بخش ۲ از ۲ • اطلاعات مالک واحد خالی</div>
                     <div class="gf-card-section-title">
-                        <span>اطلاعات مستأجر و مالک واحد</span>
+                        <span>اطلاعات مالک واحد خالی</span>
                     </div>
                     <div class="gf-card-section-desc">
-                        اطلاعات ساکن فعلی، دوره قرارداد اجاره و مشخصات تماس مالک واحد
+                        مشخصات هویتی مالک(ین) و مدارک مالکیت (بدون نیاز به ثبت تعداد ساکنین)
                     </div>
 
-                    <div class="row g-3">
-                        <div class="col-md-6 gf-field-group">
-                            <label class="gf-label" for="tn_firstName">
-                                نام مستأجر <span class="req">*</span>
-                            </label>
-                            <input type="text" class="gf-input tn-field" id="tn_firstName">
-                        </div>
-                        <div class="col-md-6 gf-field-group">
-                            <label class="gf-label" for="tn_lastName">
-                                نام خانوادگی مستأجر <span class="req">*</span>
-                            </label>
-                            <input type="text" class="gf-input tn-field" id="tn_lastName">
-                        </div>
-                    </div>
-
-                    <div class="row g-3">
-                        <div class="col-md-6 gf-field-group">
-                            <label class="gf-label" for="tn_phone">
-                                شماره همراه مستأجر <span class="req">*</span>
-                            </label>
-                            <input type="tel" class="gf-input tn-field" id="tn_phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" dir="ltr">
-                        </div>
-                        <div class="col-md-6 gf-field-group">
-                            <label class="gf-label" for="tn_occupants">
-                                تعداد ساکنین واحد <span class="req">*</span>
-                            </label>
-                            <input type="number" class="gf-input tn-field" id="tn_occupants" placeholder="تعداد نفرات" min="1">
-                        </div>
-                    </div>
-
-                    <div class="row g-3">
-                        <div class="col-md-6 gf-field-group">
-                            <label class="gf-label" for="tn_startDate">
-                                تاریخ شروع قرارداد اجاره <span class="req">*</span>
-                            </label>
-                            <input type="text" class="gf-input tn-field" id="tn_startDate" placeholder="مثال: 1403/01/01">
-                        </div>
-                        <div class="col-md-6 gf-field-group">
-                            <label class="gf-label" for="tn_endDate">
-                                تاریخ پایان قرارداد اجاره <span class="req">*</span>
-                            </label>
-                            <input type="text" class="gf-input tn-field" id="tn_endDate" placeholder="مثال: 1404/01/01">
-                        </div>
-                    </div>
-
+                    <!-- بخش مالکین (با قابلیت افزودن شریک/دانگ) -->
                     <div class="gf-field-group">
-                        <label class="gf-label" for="tn_file">
-                            مستند از اجاره‌نامه <span class="req">*</span>
+                        <label class="gf-label">
+                            مشخصات مالک / مالکین واحد <span class="req">*</span>
                         </label>
-                        <div class="gf-file-wrapper">
-                            <label for="tn_file" class="gf-file-btn">
-                                <svg viewBox="0 0 24 24">
-                                    <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
-                                </svg>
-                                <span>افزودن فایل</span>
-                            </label>
-                            <span class="gf-file-status" id="tn_file_status">فایلی انتخاب نشده است</span>
-                            <input type="file" class="d-none tn-field" id="tn_file" accept=".pdf,image/*" onchange="updateFileName(this, 'tn_file_status')">
+                        <div id="owners_container_empty">
+                            <div class="gf-owner-box owner-entry" data-index="1">
+                                <div class="gf-owner-header">
+                                    <span class="gf-owner-badge owner-idx-badge">مالک ۱ (اصلی)</span>
+                                    <button type="button" class="btn btn-sm btn-link text-danger p-0 owner-remove-btn d-none" onclick="removeOwnerRow(this, 'empty')">حذف این مالک</button>
+                                </div>
+                                <div class="row g-2">
+                                    <div class="col-6">
+                                        <label class="gf-sublabel">نام <span class="req">*</span></label>
+                                        <input type="text" class="gf-input or-empty-field owner-fname" placeholder="مثال: علی">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="gf-sublabel">نام خانوادگی <span class="req">*</span></label>
+                                        <input type="text" class="gf-input or-empty-field owner-lname" placeholder="مثال: محمدی">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="gf-help">تصویر صفحه اول یا امضای قرارداد اجاره (فرمت PDF یا عکس)</div>
-                    </div>
-
-                    <div class="gf-divider"></div>
-
-                    <div class="gf-card-section-title" style="font-size: 15px; margin-bottom: 12px;">
-                        <span>مشخصات مالک واحد (موجر)</span>
-                    </div>
-
-                    <div class="row g-3">
-                        <div class="col-md-6 gf-field-group">
-                            <label class="gf-label" for="tn_landlordName">
-                                نام و نام خانوادگی مالک واحد <span class="req">*</span>
-                            </label>
-                            <input type="text" class="gf-input tn-field" id="tn_landlordName">
-                        </div>
-                        <div class="col-md-6 gf-field-group">
-                            <label class="gf-label" for="tn_landlordPhone">
-                                شماره همراه مالک واحد <span class="req">*</span>
-                            </label>
-                            <input type="tel" class="gf-input tn-field" id="tn_landlordPhone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" dir="ltr">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 5.C: NON-RESIDENT OWNER CARD -->
-                <div id="fields_owner_non_resident" class="role-fields gf-card d-none">
-                    <div class="gf-section-badge">بخش ۲ از ۲ • تکمیلی</div>
-                    <div class="gf-card-section-title">
-                        <span>اطلاعات مالک غیرساکن</span>
-                    </div>
-                    <div class="gf-card-section-desc">
-                        اطلاعات مالکیت و وضعیت جاری بهره‌برداری از واحد
-                    </div>
-
-                    <div class="row g-3">
-                        <div class="col-md-6 gf-field-group">
-                            <label class="gf-label" for="onr_firstName">
-                                نام مالک <span class="req">*</span>
-                            </label>
-                            <input type="text" class="gf-input onr-field" id="onr_firstName">
-                        </div>
-                        <div class="col-md-6 gf-field-group">
-                            <label class="gf-label" for="onr_lastName">
-                                نام خانوادگی مالک <span class="req">*</span>
-                            </label>
-                            <input type="text" class="gf-input onr-field" id="onr_lastName">
+                        <div class="mt-2">
+                            <button type="button" class="gf-btn-add" onclick="addOwnerRow('empty')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                                افزودن مالک دیگر (شریک / دانگ)
+                            </button>
                         </div>
                     </div>
 
+                    <!-- شماره همراه مالک -->
                     <div class="gf-field-group">
-                        <label class="gf-label" for="onr_phone">
+                        <label class="gf-label" for="or_empty_phone">
                             شماره همراه مالک <span class="req">*</span>
                         </label>
-                        <input type="tel" class="gf-input onr-field" id="onr_phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" dir="ltr">
+                        <input type="tel" class="gf-input or-empty-field" id="or_empty_phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" dir="ltr">
+                        <div class="gf-help">جهت هماهنگی‌های پیامکی، قبوض و اطلاعیه‌های مدیریت مجتمع</div>
                     </div>
 
+                    <!-- نوع مالکیت -->
                     <div class="gf-field-group">
-                        <label class="gf-label" for="onr_ownership">
+                        <label class="gf-label" for="or_empty_ownership">
                             نوع مالکیت <span class="req">*</span>
                         </label>
-                        <select class="gf-select onr-field" id="onr_ownership">
+                        <select class="gf-select or-empty-field" id="or_empty_ownership">
                             <option value="">انتخاب کنید...</option>
                             <option value="تعاونی پزشکان">تعاونی پزشکان</option>
                             <option value="بنیاد کشاورزی">بنیاد کشاورزی</option>
@@ -842,43 +1059,322 @@
                         </select>
                     </div>
 
-                    <div class="row g-3">
-                        <div class="col-md-6 gf-field-group">
-                            <label class="gf-label" for="onr_date">
-                                تاریخ خرید واحد <span class="req">*</span>
-                            </label>
-                            <input type="text" class="gf-input onr-field" id="onr_date" placeholder="مثال: 1402/10/15">
+                    <!-- تاریخ خرید واحد (۳ بخشی شمسی) -->
+                    <div class="gf-field-group">
+                        <label class="gf-label">
+                            تاریخ خرید واحد <span class="req">*</span>
+                        </label>
+                        <div class="gf-date-wrapper" id="date_picker_or_empty">
+                            <div class="row g-2 align-items-center">
+                                <!-- سال -->
+                                <div class="col-4">
+                                    <label class="gf-sublabel">سال</label>
+                                    <div class="gf-combobox">
+                                        <div class="input-group">
+                                            <input type="number" class="gf-input text-center j-year or-empty-field" min="1350" max="1405" placeholder="سال">
+                                            <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
+                                        </div>
+                                        <div class="gf-dropdown-menu gf-year-menu"></div>
+                                    </div>
+                                </div>
+                                <!-- ماه -->
+                                <div class="col-4">
+                                    <label class="gf-sublabel">ماه</label>
+                                    <div class="gf-combobox">
+                                        <div class="input-group">
+                                            <input type="text" class="gf-input text-center j-month or-empty-field" maxlength="2" placeholder="ماه">
+                                            <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
+                                        </div>
+                                        <div class="gf-dropdown-menu gf-month-menu"></div>
+                                    </div>
+                                </div>
+                                <!-- روز -->
+                                <div class="col-4">
+                                    <label class="gf-sublabel">روز</label>
+                                    <input type="number" class="gf-input text-center j-day or-empty-field" min="1" max="31" step="1" placeholder="روز">
+                                </div>
+                            </div>
+                            <div class="gf-date-preview preview-box d-none">
+                                <span>📅 تاریخ انتخابی:</span>
+                                <strong class="preview-text"></strong>
+                            </div>
                         </div>
-                        <div class="col-md-6 gf-field-group">
-                            <label class="gf-label" for="onr_status">
-                                وضعیت فعلی واحد <span class="req">*</span>
+                    </div>
+
+                    <!-- مدرک مالکیت -->
+                    <div class="gf-field-group">
+                        <label class="gf-label" for="or_empty_file">
+                            مستند مالکیت (تصویر صفحه اول سند یا مدرک واگذاری) <span class="req">*</span>
+                        </label>
+                        <div class="gf-file-wrapper">
+                            <label for="or_empty_file" class="gf-file-btn">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                                </svg>
+                                <span>افزودن فایل</span>
                             </label>
-                            <select class="gf-select onr-field" id="onr_status">
+                            <span class="gf-file-status" id="or_empty_file_status">فایلی انتخاب نشده است</span>
+                            <input type="file" class="d-none or-empty-field" id="or_empty_file" accept=".pdf,image/*" onchange="updateFileName(this, 'or_empty_file_status')">
+                        </div>
+                        <div class="gf-help">
+                            🔒 امنیت اسناد کاملاً تضمین شده است. صرفاً تصویر صفحه‌ای که نام مالک و واحد در آن درج شده کفایت می‌کند.
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- ========================================== -->
+                <!-- 5.C: CONDITIONAL CARD 3 (owner_rented)     -->
+                <!-- ========================================== -->
+                <div id="fields_owner_rented" class="role-fields d-none">
+                    
+                    <!-- 5.C-1: بخش اطلاعات مالک (موجر) -->
+                    <div class="gf-card">
+                        <div class="gf-section-badge">بخش ۲ از ۳ • مشخصات مالک (موجر)</div>
+                        <div class="gf-card-section-title">
+                            <span>اطلاعات مالک واحد (موجر)</span>
+                        </div>
+                        <div class="gf-card-section-desc">
+                            مشخصات هویتی مالک(ین) و تاریخ خرید واحد
+                        </div>
+
+                        <!-- بخش مالکین (با قابلیت افزودن شریک/دانگ) -->
+                        <div class="gf-field-group">
+                            <label class="gf-label">
+                                مشخصات مالک / مالکین واحد <span class="req">*</span>
+                            </label>
+                            <div id="owners_container_rented">
+                                <div class="gf-owner-box owner-entry" data-index="1">
+                                    <div class="gf-owner-header">
+                                        <span class="gf-owner-badge owner-idx-badge">مالک ۱ (اصلی)</span>
+                                        <button type="button" class="btn btn-sm btn-link text-danger p-0 owner-remove-btn d-none" onclick="removeOwnerRow(this, 'rented')">حذف این مالک</button>
+                                    </div>
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <label class="gf-sublabel">نام <span class="req">*</span></label>
+                                            <input type="text" class="gf-input or-rented-field owner-fname" placeholder="مثال: علی">
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="gf-sublabel">نام خانوادگی <span class="req">*</span></label>
+                                            <input type="text" class="gf-input or-rented-field owner-lname" placeholder="مثال: محمدی">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <button type="button" class="gf-btn-add" onclick="addOwnerRow('rented')">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                                    افزودن مالک دیگر (شریک / دانگ)
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- شماره همراه مالک -->
+                        <div class="gf-field-group">
+                            <label class="gf-label" for="rn_owner_phone">
+                                شماره همراه مالک <span class="req">*</span>
+                            </label>
+                            <input type="tel" class="gf-input or-rented-field" id="rn_owner_phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" dir="ltr">
+                        </div>
+
+                        <!-- نوع مالکیت -->
+                        <div class="gf-field-group">
+                            <label class="gf-label" for="rn_owner_ownership">
+                                نوع مالکیت <span class="req">*</span>
+                            </label>
+                            <select class="gf-select or-rented-field" id="rn_owner_ownership">
                                 <option value="">انتخاب کنید...</option>
-                                <option value="واحد خالی است">واحد خالی است</option>
-                                <option value="واحد اجاره داده شده است">واحد اجاره داده شده است</option>
+                                <option value="تعاونی پزشکان">تعاونی پزشکان</option>
+                                <option value="بنیاد کشاورزی">بنیاد کشاورزی</option>
+                                <option value="مستقل">مستقل</option>
                             </select>
                         </div>
-                    </div>
 
-                    <div class="gf-divider"></div>
-
-                    <div class="gf-card-section-title" style="font-size: 15px; margin-bottom: 12px;">
-                        <span>اطلاعات مستأجر (در صورت اجاره بودن واحد)</span>
-                    </div>
-
-                    <div class="row g-3">
-                        <div class="col-md-6 gf-field-group">
-                            <label class="gf-label" for="onr_tenantName">
-                                نام مستأجر فعلی
+                        <!-- تاریخ خرید واحد (۳ بخشی شمسی) -->
+                        <div class="gf-field-group">
+                            <label class="gf-label">
+                                تاریخ خرید واحد <span class="req">*</span>
                             </label>
-                            <input type="text" class="gf-input" id="onr_tenantName" placeholder="اختیاری">
+                            <div class="gf-date-wrapper" id="date_picker_rn_owner">
+                                <div class="row g-2 align-items-center">
+                                    <!-- سال -->
+                                    <div class="col-4">
+                                        <label class="gf-sublabel">سال</label>
+                                        <div class="gf-combobox">
+                                            <div class="input-group">
+                                                <input type="number" class="gf-input text-center j-year or-rented-field" min="1350" max="1405" placeholder="سال">
+                                                <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
+                                            </div>
+                                            <div class="gf-dropdown-menu gf-year-menu"></div>
+                                        </div>
+                                    </div>
+                                    <!-- ماه -->
+                                    <div class="col-4">
+                                        <label class="gf-sublabel">ماه</label>
+                                        <div class="gf-combobox">
+                                            <div class="input-group">
+                                                <input type="text" class="gf-input text-center j-month or-rented-field" maxlength="2" placeholder="ماه">
+                                                <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
+                                            </div>
+                                            <div class="gf-dropdown-menu gf-month-menu"></div>
+                                        </div>
+                                    </div>
+                                    <!-- روز -->
+                                    <div class="col-4">
+                                        <label class="gf-sublabel">روز</label>
+                                        <input type="number" class="gf-input text-center j-day or-rented-field" min="1" max="31" step="1" placeholder="روز">
+                                    </div>
+                                </div>
+                                <div class="gf-date-preview preview-box d-none">
+                                    <span>📅 تاریخ انتخابی:</span>
+                                    <strong class="preview-text"></strong>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6 gf-field-group">
-                            <label class="gf-label" for="onr_tenantPhone">
-                                شماره تماس مستأجر
+                    </div>
+
+                    <!-- 5.C-2: بخش اطلاعات مستأجر (در یک کارت جداگانه زیر بخش مالک) -->
+                    <div class="gf-card">
+                        <div class="gf-section-badge">بخش ۳ از ۳ • مشخصات مستأجر واحد</div>
+                        <div class="gf-card-section-title">
+                            <span>اطلاعات مستأجر و قرارداد اجاره</span>
+                        </div>
+                        <div class="gf-card-section-desc">
+                            مشخصات مستأجر فعلی، دوره قرارداد و فایل اجاره‌نامه
+                        </div>
+
+                        <!-- نام و نام خانوادگی مستأجر کنار هم -->
+                        <div class="row g-2">
+                            <div class="col-6 gf-field-group">
+                                <label class="gf-label" for="rn_tenant_fname">
+                                    نام مستأجر <span class="req">*</span>
+                                </label>
+                                <input type="text" class="gf-input or-rented-field" id="rn_tenant_fname" placeholder="مثال: رضا">
+                            </div>
+                            <div class="col-6 gf-field-group">
+                                <label class="gf-label" for="rn_tenant_lname">
+                                    نام خانوادگی مستأجر <span class="req">*</span>
+                                </label>
+                                <input type="text" class="gf-input or-rented-field" id="rn_tenant_lname" placeholder="مثال: حسینی">
+                            </div>
+                        </div>
+
+                        <!-- شماره همراه مستأجر -->
+                        <div class="gf-field-group">
+                            <label class="gf-label" for="rn_tenant_phone">
+                                شماره همراه مستأجر <span class="req">*</span>
                             </label>
-                            <input type="tel" class="gf-input" id="onr_tenantPhone" placeholder="اختیاری" dir="ltr">
+                            <input type="tel" class="gf-input or-rented-field" id="rn_tenant_phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" dir="ltr">
+                        </div>
+
+                        <!-- تعداد ساکنین (فقط عدد مثبت) -->
+                        <div class="gf-field-group">
+                            <label class="gf-label" for="rn_tenant_occupants">
+                                تعداد ساکنین واحد <span class="req">*</span>
+                            </label>
+                            <input type="number" class="gf-input or-rented-field" id="rn_tenant_occupants" placeholder="تعداد نفرات (فقط عدد مثبت)" min="1" step="1" oninput="if(this.value < 1 && this.value !== '') this.value = 1;">
+                        </div>
+
+                        <!-- تاریخ شروع قرارداد اجاره (۳ بخشی شمسی) -->
+                        <div class="gf-field-group">
+                            <label class="gf-label">
+                                تاریخ شروع قرارداد اجاره <span class="req">*</span>
+                            </label>
+                            <div class="gf-date-wrapper" id="date_picker_rn_start">
+                                <div class="row g-2 align-items-center">
+                                    <!-- سال -->
+                                    <div class="col-4">
+                                        <label class="gf-sublabel">سال</label>
+                                        <div class="gf-combobox">
+                                            <div class="input-group">
+                                                <input type="number" class="gf-input text-center j-year or-rented-field" min="1350" max="1405" placeholder="سال">
+                                                <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
+                                            </div>
+                                            <div class="gf-dropdown-menu gf-year-menu"></div>
+                                        </div>
+                                    </div>
+                                    <!-- ماه -->
+                                    <div class="col-4">
+                                        <label class="gf-sublabel">ماه</label>
+                                        <div class="gf-combobox">
+                                            <div class="input-group">
+                                                <input type="text" class="gf-input text-center j-month or-rented-field" maxlength="2" placeholder="ماه">
+                                                <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
+                                            </div>
+                                            <div class="gf-dropdown-menu gf-month-menu"></div>
+                                        </div>
+                                    </div>
+                                    <!-- روز -->
+                                    <div class="col-4">
+                                        <label class="gf-sublabel">روز</label>
+                                        <input type="number" class="gf-input text-center j-day or-rented-field" min="1" max="31" step="1" placeholder="روز">
+                                    </div>
+                                </div>
+                                <div class="gf-date-preview preview-box d-none">
+                                    <span>📅 تاریخ انتخابی:</span>
+                                    <strong class="preview-text"></strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- تاریخ پایان قرارداد اجاره (۳ بخشی شمسی) -->
+                        <div class="gf-field-group">
+                            <label class="gf-label">
+                                تاریخ پایان قرارداد اجاره <span class="req">*</span>
+                            </label>
+                            <div class="gf-date-wrapper" id="date_picker_rn_end">
+                                <div class="row g-2 align-items-center">
+                                    <!-- سال -->
+                                    <div class="col-4">
+                                        <label class="gf-sublabel">سال</label>
+                                        <div class="gf-combobox">
+                                            <div class="input-group">
+                                                <input type="number" class="gf-input text-center j-year or-rented-field" min="1350" max="1405" placeholder="سال">
+                                                <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
+                                            </div>
+                                            <div class="gf-dropdown-menu gf-year-menu"></div>
+                                        </div>
+                                    </div>
+                                    <!-- ماه -->
+                                    <div class="col-4">
+                                        <label class="gf-sublabel">ماه</label>
+                                        <div class="gf-combobox">
+                                            <div class="input-group">
+                                                <input type="text" class="gf-input text-center j-month or-rented-field" maxlength="2" placeholder="ماه">
+                                                <button class="btn dropdown-toggle-split gf-dd-toggle" type="button" tabindex="-1">▼</button>
+                                            </div>
+                                            <div class="gf-dropdown-menu gf-month-menu"></div>
+                                        </div>
+                                    </div>
+                                    <!-- روز -->
+                                    <div class="col-4">
+                                        <label class="gf-sublabel">روز</label>
+                                        <input type="number" class="gf-input text-center j-day or-rented-field" min="1" max="31" step="1" placeholder="روز">
+                                    </div>
+                                </div>
+                                <div class="gf-date-preview preview-box d-none">
+                                    <span>📅 تاریخ انتخابی:</span>
+                                    <strong class="preview-text"></strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- مدرک اجاره‌نامه -->
+                        <div class="gf-field-group">
+                            <label class="gf-label" for="rn_lease_file">
+                                مستند قرارداد اجاره‌نامه <span class="req">*</span>
+                            </label>
+                            <div class="gf-file-wrapper">
+                                <label for="rn_lease_file" class="gf-file-btn">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                                    </svg>
+                                    <span>افزودن فایل</span>
+                                </label>
+                                <span class="gf-file-status" id="rn_lease_file_status">فایلی انتخاب نشده است</span>
+                                <input type="file" class="d-none or-rented-field" id="rn_lease_file" accept=".pdf,image/*" onchange="updateFileName(this, 'rn_lease_file_status')">
+                            </div>
+                            <div class="gf-help">تصویر صفحه اول یا امضای قرارداد اجاره (فرمت PDF یا عکس)</div>
                         </div>
                     </div>
                 </div>
@@ -895,27 +1391,168 @@
                     پاک کردن فرم
                 </button>
             </div>
-
-            <!-- HIDDEN BACKWARD-COMPATIBLE LOADING DIV -->
-            <div id="loading" class="d-none"></div>
-            <!-- HIDDEN BACKWARD-COMPATIBLE SUCCESS MSG -->
-            <div id="successMessage" class="d-none"></div>
         </form>
 
         <!-- FOOTER & DISCLAIMER -->
         <div class="gf-footer">
-            <p>این محتوا توسط مدیریت مجتمع مسکونی الیزیوم ایجاد شده است.</p>
+            <p>این سامانه توسط مدیریت مجتمع مسکونی الیزیوم جهت تسهیل و شفاف‌سازی امور ساختمانی ایجاد شده است.</p>
             <p style="font-size: 11px; color: #80868b;">
-                هرگز رمزهای عبور یا اطلاعات بانکی محرمانه خود را از طریق فرم‌های آنلاین ارسال نکنید.
+                اطلاعات ثبت‌شده کاملاً محرمانه بوده و صرفاً جهت مصارف مدیریتی و رفاهی ساکنین مجتمع استفاده خواهد شد.
             </p>
         </div>
     </div>
 
-    <!-- SCRIPT -->
+    <!-- SCRIPT LOGIC -->
     <script>
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxaXOljirQkJnOzMWATQZGxd388m3zuAPo0XFDvACKOan94rvoGj8SOf7m9HZkHs2jF/exec";
 
-        // Handle Role Conditional Logic with Smooth Animation
+        // Persian Month Definitions
+        const JALALI_MONTHS = [
+            { num: "01", name: "فروردین" },
+            { num: "02", name: "اردیبهشت" },
+            { num: "03", name: "خرداد" },
+            { num: "04", name: "تیر" },
+            { num: "05", name: "مرداد" },
+            { num: "06", name: "شهریور" },
+            { num: "07", name: "مهر" },
+            { num: "08", name: "آبان" },
+            { num: "09", name: "آذر" },
+            { num: "10", name: "دی" },
+            { num: "11", name: "بهمن" },
+            { num: "12", name: "اسفند" }
+        ];
+
+        // 1. Initialize Jalali Date Pickers (Populate Descending Years & Months)
+        function initDatePickers() {
+            // Descending years from 1405 down to 1350
+            let yearHtml = '';
+            for (let y = 1405; y >= 1350; y--) {
+                yearHtml += `<a class="gf-dropdown-item" href="javascript:void(0)" data-val="${y}">${y}</a>`;
+            }
+            document.querySelectorAll('.gf-year-menu').forEach(el => el.innerHTML = yearHtml);
+
+            // Months from Farvardin to Esfand
+            let monthHtml = '';
+            JALALI_MONTHS.forEach(m => {
+                monthHtml += `<a class="gf-dropdown-item" href="javascript:void(0)" data-val="${m.num}">${m.name} (${m.num})</a>`;
+            });
+            document.querySelectorAll('.gf-month-menu').forEach(el => el.innerHTML = monthHtml);
+
+            // Bind listeners for all date pickers
+            document.querySelectorAll('.gf-date-wrapper').forEach(wrapper => {
+                const yearInput = wrapper.querySelector('.j-year');
+                const monthInput = wrapper.querySelector('.j-month');
+                const dayInput = wrapper.querySelector('.j-day');
+
+                [yearInput, monthInput, dayInput].forEach(inp => {
+                    if (inp) {
+                        inp.addEventListener('input', () => updateDatePreview(wrapper));
+                        inp.addEventListener('change', () => updateDatePreview(wrapper));
+                    }
+                });
+
+                // Auto-convert Persian month name typed into numeric month
+                if (monthInput) {
+                    monthInput.addEventListener('blur', function() {
+                        const val = this.value.trim();
+                        if (!val) return;
+                        // If typed full or partial month name
+                        const matched = JALALI_MONTHS.find(m => m.name.includes(val) || val.includes(m.name));
+                        if (matched) {
+                            this.value = matched.num;
+                        } else if (!isNaN(val)) {
+                            let n = parseInt(val, 10);
+                            if (n >= 1 && n <= 12) {
+                                this.value = String(n).padStart(2, '0');
+                            }
+                        }
+                        updateDatePreview(wrapper);
+                    });
+                }
+
+                // Restrict Day input between 1 and 31
+                if (dayInput) {
+                    dayInput.addEventListener('input', function() {
+                        let d = parseInt(this.value, 10);
+                        if (d > 31) this.value = 31;
+                        if (d < 1 && this.value !== '') this.value = 1;
+                    });
+                }
+            });
+        }
+
+        // Live preview for 3-part Jalali Date
+        function updateDatePreview(wrapper) {
+            const year = wrapper.querySelector('.j-year')?.value.trim();
+            const month = wrapper.querySelector('.j-month')?.value.trim();
+            const day = wrapper.querySelector('.j-day')?.value.trim();
+            const previewBox = wrapper.querySelector('.preview-box');
+            const previewText = wrapper.querySelector('.preview-text');
+
+            if (!previewBox || !previewText) return;
+
+            if (year && month && day) {
+                const mObj = JALALI_MONTHS.find(m => parseInt(m.num, 10) === parseInt(month, 10));
+                const monthName = mObj ? mObj.name : month;
+                const paddedDay = String(parseInt(day, 10)).padStart(2, '0');
+                const paddedMonth = String(parseInt(month, 10)).padStart(2, '0');
+                previewText.textContent = `${paddedDay} ${monthName} ${year} (${year}/${paddedMonth}/${paddedDay})`;
+                previewBox.classList.remove('d-none');
+            } else {
+                previewBox.classList.add('d-none');
+            }
+        }
+
+        function getPickerDateString(wrapperId) {
+            const wrapper = document.getElementById(wrapperId);
+            if (!wrapper) return '';
+            const y = wrapper.querySelector('.j-year')?.value.trim();
+            const m = wrapper.querySelector('.j-month')?.value.trim();
+            const d = wrapper.querySelector('.j-day')?.value.trim();
+            if (!y || !m || !d) return '';
+            return `${y}/${String(m).padStart(2, '0')}/${String(d).padStart(2, '0')}`;
+        }
+
+        // Global dropdown toggle handling (Accessible, lightweight, robust)
+        document.addEventListener('click', function(e) {
+            const toggleBtn = e.target.closest('.gf-dd-toggle');
+            if (toggleBtn) {
+                e.preventDefault();
+                const combobox = toggleBtn.closest('.gf-combobox');
+                const menu = combobox.querySelector('.gf-dropdown-menu');
+                const isOpen = menu.classList.contains('show');
+                // Close all other dropdowns
+                document.querySelectorAll('.gf-dropdown-menu.show').forEach(m => m.classList.remove('show'));
+                if (!isOpen) {
+                    menu.classList.add('show');
+                }
+                return;
+            }
+
+            // Clicked an item inside dropdown
+            const item = e.target.closest('.gf-dropdown-item');
+            if (item) {
+                e.preventDefault();
+                const val = item.getAttribute('data-val');
+                const combobox = item.closest('.gf-combobox');
+                const input = combobox.querySelector('.gf-input');
+                if (input && val) {
+                    input.value = val;
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                    input.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+                const menu = combobox.querySelector('.gf-dropdown-menu');
+                menu.classList.remove('show');
+                return;
+            }
+
+            // Click outside -> close open dropdowns
+            if (!e.target.closest('.gf-combobox')) {
+                document.querySelectorAll('.gf-dropdown-menu.show').forEach(m => m.classList.remove('show'));
+            }
+        });
+
+        // 2. Handle Role Conditional Logic
         function handleRoleChange() {
             const role = document.getElementById('role').value;
             const conditionalSection = document.getElementById('conditionalSection');
@@ -925,7 +1562,11 @@
                 el.classList.add('d-none');
                 el.classList.remove('animate-gf-slide');
             });
-            document.querySelectorAll('.or-field, .tn-field, .onr-field').forEach(el => el.removeAttribute('required'));
+
+            // Strip required from all conditional fields first
+            document.querySelectorAll('.or-dweller-field, .or-empty-field, .or-rented-field').forEach(el => {
+                el.removeAttribute('required');
+            });
 
             if (!role) {
                 conditionalSection.classList.add('d-none');
@@ -937,25 +1578,189 @@
             if (targetDiv) {
                 targetDiv.classList.remove('d-none');
                 targetDiv.classList.add('animate-gf-slide');
-                
-                targetDiv.querySelectorAll(
-                    role === 'owner_dweller' ? '.or-field' : 
-                    role === 'tenant' ? '.tn-field' : '.onr-field'
-                ).forEach(el => el.setAttribute('required', 'true'));
 
-                // Smooth scroll to the newly visible conditional card
+                // Apply required attribute only to the active role's inputs
+                const activeSelector = role === 'owner_dweller' ? '.or-dweller-field' :
+                                       role === 'owner_empty' ? '.or-empty-field' : '.or-rented-field';
+
+                targetDiv.querySelectorAll(activeSelector).forEach(el => {
+                    // Exclude optional elements or buttons
+                    if (el.tagName === 'INPUT' || el.tagName === 'SELECT') {
+                        el.setAttribute('required', 'true');
+                    }
+                });
+
+                // Smooth scroll to the visible section
                 setTimeout(() => {
                     targetDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 100);
             }
         }
 
-        // Custom File Input Status Helper
+        // 3. Dynamic Parking & Storage Handlers
+        function addParkingRow() {
+            const container = document.getElementById('parkingContainer');
+            const newRow = document.createElement('div');
+            newRow.className = 'gf-dynamic-row parking-row animate-gf-slide';
+            newRow.innerHTML = `
+                <div class="row g-2 align-items-center">
+                    <div class="col-7">
+                        <label class="gf-sublabel">شماره پارکینگ (فقط عدد)</label>
+                        <input type="number" class="gf-input parking-number" min="1" placeholder="مثال: 15">
+                    </div>
+                    <div class="col-4">
+                        <label class="gf-sublabel">طبقه / سطح</label>
+                        <select class="gf-select parking-level">
+                            <option value="P1">P1 (طبقه ۱-)</option>
+                            <option value="P2">P2 (طبقه ۲-)</option>
+                            <option value="P3">P3 (طبقه ۳-)</option>
+                        </select>
+                    </div>
+                    <div class="col-1 text-center pt-3">
+                        <button type="button" class="gf-btn-remove parking-remove-btn" onclick="removeDynamicEntry(this, '#parkingContainer', '.parking-row', '.parking-remove-btn')" title="حذف این پارکینگ">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                        </button>
+                    </div>
+                </div>
+            `;
+            container.appendChild(newRow);
+            updateRemoveButtonsVisibility('#parkingContainer', '.parking-row', '.parking-remove-btn');
+        }
+
+        function addStorageRow() {
+            const container = document.getElementById('storageContainer');
+            const newRow = document.createElement('div');
+            newRow.className = 'gf-dynamic-row storage-row animate-gf-slide';
+            newRow.innerHTML = `
+                <div class="row g-2 align-items-center">
+                    <div class="col-7">
+                        <label class="gf-sublabel">شماره انبار (فقط عدد)</label>
+                        <input type="number" class="gf-input storage-number" min="1" placeholder="مثال: 9">
+                    </div>
+                    <div class="col-4">
+                        <label class="gf-sublabel">طبقه / سطح</label>
+                        <select class="gf-select storage-level">
+                            <option value="P1">P1 (طبقه ۱-)</option>
+                            <option value="P2">P2 (طبقه ۲-)</option>
+                            <option value="P3">P3 (طبقه ۳-)</option>
+                            <option value="همکف">همکف</option>
+                        </select>
+                    </div>
+                    <div class="col-1 text-center pt-3">
+                        <button type="button" class="gf-btn-remove storage-remove-btn" onclick="removeDynamicEntry(this, '#storageContainer', '.storage-row', '.storage-remove-btn')" title="حذف این انبار">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                        </button>
+                    </div>
+                </div>
+            `;
+            container.appendChild(newRow);
+            updateRemoveButtonsVisibility('#storageContainer', '.storage-row', '.storage-remove-btn');
+        }
+
+        function removeDynamicEntry(btn, containerSelector, rowSelector, removeBtnSelector) {
+            const row = btn.closest(rowSelector);
+            if (row) {
+                row.remove();
+            }
+            updateRemoveButtonsVisibility(containerSelector, rowSelector, removeBtnSelector);
+        }
+
+        function updateRemoveButtonsVisibility(containerSelector, rowSelector, removeBtnSelector) {
+            const container = document.querySelector(containerSelector);
+            if (!container) return;
+            const rows = container.querySelectorAll(rowSelector);
+            rows.forEach((row, idx) => {
+                const removeBtn = row.querySelector(removeBtnSelector);
+                if (removeBtn) {
+                    if (rows.length > 1) {
+                        removeBtn.classList.remove('d-none');
+                    } else {
+                        removeBtn.classList.add('d-none');
+                    }
+                }
+            });
+        }
+
+        // 4. Multiple Owners Handlers
+        function addOwnerRow(roleKey) {
+            const container = document.getElementById(`owners_container_${roleKey}`);
+            const currentRows = container.querySelectorAll('.owner-entry');
+            const nextIdx = currentRows.length + 1;
+            const fieldClass = roleKey === 'dweller' ? 'or-dweller-field' :
+                               roleKey === 'empty' ? 'or-empty-field' : 'or-rented-field';
+
+            const newOwnerBox = document.createElement('div');
+            newOwnerBox.className = 'gf-owner-box owner-entry animate-gf-slide';
+            newOwnerBox.setAttribute('data-index', nextIdx);
+            newOwnerBox.innerHTML = `
+                <div class="gf-owner-header">
+                    <span class="gf-owner-badge owner-idx-badge">مالک ${nextIdx} (شریک / دانگ)</span>
+                    <button type="button" class="btn btn-sm btn-link text-danger p-0 owner-remove-btn" onclick="removeOwnerRow(this, '${roleKey}')">حذف این مالک</button>
+                </div>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <label class="gf-sublabel">نام <span class="req">*</span></label>
+                        <input type="text" class="gf-input ${fieldClass} owner-fname" placeholder="مثال: سارا" required>
+                    </div>
+                    <div class="col-6">
+                        <label class="gf-sublabel">نام خانوادگی <span class="req">*</span></label>
+                        <input type="text" class="gf-input ${fieldClass} owner-lname" placeholder="مثال: محمدی" required>
+                    </div>
+                </div>
+            `;
+            container.appendChild(newOwnerBox);
+            refreshOwnerIndexes(roleKey);
+        }
+
+        function removeOwnerRow(btn, roleKey) {
+            const box = btn.closest('.owner-entry');
+            if (box) box.remove();
+            refreshOwnerIndexes(roleKey);
+        }
+
+        function refreshOwnerIndexes(roleKey) {
+            const container = document.getElementById(`owners_container_${roleKey}`);
+            if (!container) return;
+            const rows = container.querySelectorAll('.owner-entry');
+            rows.forEach((row, i) => {
+                const idx = i + 1;
+                row.setAttribute('data-index', idx);
+                const badge = row.querySelector('.owner-idx-badge');
+                const removeBtn = row.querySelector('.owner-remove-btn');
+                if (badge) {
+                    badge.textContent = idx === 1 ? 'مالک ۱ (اصلی)' : `مالک ${idx} (شریک / دانگ)`;
+                }
+                if (removeBtn) {
+                    if (rows.length > 1 && idx > 1) {
+                        removeBtn.classList.remove('d-none');
+                    } else {
+                        removeBtn.classList.add('d-none');
+                    }
+                }
+            });
+        }
+
+        function getOwnersList(roleKey) {
+            const container = document.getElementById(`owners_container_${roleKey}`);
+            if (!container) return [];
+            const rows = container.querySelectorAll('.owner-entry');
+            const list = [];
+            rows.forEach(row => {
+                const fn = row.querySelector('.owner-fname')?.value.trim() || '';
+                const ln = row.querySelector('.owner-lname')?.value.trim() || '';
+                if (fn || ln) {
+                    list.push({ firstName: fn, lastName: ln });
+                }
+            });
+            return list;
+        }
+
+        // 5. File Input Helper
         function updateFileName(input, statusElementId) {
             const statusEl = document.getElementById(statusElementId);
             if (input.files && input.files[0]) {
                 const file = input.files[0];
-                const fileSize = (file.size / 1024).toFixed(1); // in KB
+                const fileSize = (file.size / 1024).toFixed(1);
                 statusEl.textContent = `✓ ${file.name} (${fileSize} KB)`;
                 statusEl.classList.add('has-file');
             } else {
@@ -964,9 +1769,9 @@
             }
         }
 
-        // Clear / Reset Form with Confirmation
+        // 6. Reset Form
         function confirmResetForm() {
-            if (confirm('آیا از پاک کردن تمام مقادیر وارد شده در این فرم اطمینان دارید؟')) {
+            if (confirm('آیا از پاک کردن تمامی مقادیر وارد شده در این فرم اطمینان دارید؟')) {
                 resetFormToStart();
             }
         }
@@ -978,93 +1783,220 @@
             document.getElementById('conditionalSection').classList.add('d-none');
             
             document.querySelectorAll('.role-fields').forEach(el => el.classList.add('d-none'));
-            document.querySelectorAll('.or-field, .tn-field, .onr-field').forEach(el => el.removeAttribute('required'));
+            document.querySelectorAll('.or-dweller-field, .or-empty-field, .or-rented-field').forEach(el => el.removeAttribute('required'));
 
-            // Reset file status labels
-            const orStatus = document.getElementById('or_file_status');
-            if (orStatus) {
-                orStatus.textContent = 'فایلی انتخاب نشده است';
-                orStatus.classList.remove('has-file');
-            }
-            const tnStatus = document.getElementById('tn_file_status');
-            if (tnStatus) {
-                tnStatus.textContent = 'فایلی انتخاب نشده است';
-                tnStatus.classList.remove('has-file');
-            }
+            // Reset dynamic owners to 1 each
+            ['dweller', 'empty', 'rented'].forEach(roleKey => {
+                const container = document.getElementById(`owners_container_${roleKey}`);
+                if (container) {
+                    const rows = container.querySelectorAll('.owner-entry');
+                    for (let i = 1; i < rows.length; i++) rows[i].remove();
+                    refreshOwnerIndexes(roleKey);
+                }
+            });
+
+            // Reset dynamic parking & storage
+            const pRows = document.querySelectorAll('#parkingContainer .parking-row');
+            for (let i = 1; i < pRows.length; i++) pRows[i].remove();
+            updateRemoveButtonsVisibility('#parkingContainer', '.parking-row', '.parking-remove-btn');
+
+            const sRows = document.querySelectorAll('#storageContainer .storage-row');
+            for (let i = 1; i < sRows.length; i++) sRows[i].remove();
+            updateRemoveButtonsVisibility('#storageContainer', '.storage-row', '.storage-remove-btn');
+
+            // Reset file statuses
+            ['or_dweller_file_status', 'or_empty_file_status', 'rn_lease_file_status'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.textContent = 'فایلی انتخاب نشده است';
+                    el.classList.remove('has-file');
+                }
+            });
+
+            // Clear date previews
+            document.querySelectorAll('.preview-box').forEach(b => b.classList.add('d-none'));
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Form Submit Handler
+        // 7. Form Submission Handler
         document.getElementById('surveyForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            // Native form validation check
+            // Native form validity
             if (!this.checkValidity()) {
                 this.reportValidity();
                 return;
             }
-            
+
             const role = document.getElementById('role').value;
+            if (!role) {
+                alert('لطفاً نقش و وضعیت سکونت خود را انتخاب فرمایید.');
+                document.getElementById('role').focus();
+                return;
+            }
+
+            // Collect structured Parking entries
+            const parkingEntries = [];
+            document.querySelectorAll('#parkingContainer .parking-row').forEach(row => {
+                const num = row.querySelector('.parking-number')?.value.trim();
+                const lvl = row.querySelector('.parking-level')?.value;
+                if (num) {
+                    parkingEntries.push({ number: num, level: lvl });
+                }
+            });
+            const parkingString = parkingEntries.length > 0 
+                ? parkingEntries.map(p => `${p.level}-${p.number}`).join(', ') 
+                : 'ندارد';
+
+            // Collect structured Storage entries
+            const storageEntries = [];
+            document.querySelectorAll('#storageContainer .storage-row').forEach(row => {
+                const num = row.querySelector('.storage-number')?.value.trim();
+                const lvl = row.querySelector('.storage-level')?.value;
+                if (num) {
+                    storageEntries.push({ number: num, level: lvl });
+                }
+            });
+            const storageString = storageEntries.length > 0 
+                ? storageEntries.map(s => `${s.level}-${s.number}`).join(', ') 
+                : 'ندارد';
+
+            // Base Payload
             let payload = {
                 block: document.getElementById('block').value,
                 floor: document.getElementById('floor').value,
                 unitNumber: document.getElementById('unitNumber').value,
                 bedrooms: document.getElementById('bedrooms').value,
                 unitSize: document.getElementById('unitSize').value,
-                parkingNumber: document.getElementById('parkingNumber').value,
-                storageNumber: document.getElementById('storageNumber').value,
+                parkingNumber: parkingString,
+                storageNumber: storageString,
+                parkings: parkingEntries,
+                storages: storageEntries,
                 role: role
             };
 
             let fileInput = null;
 
             if (role === 'owner_dweller') {
-                const fName = document.getElementById('or_firstName').value;
-                const lName = document.getElementById('or_lastName').value;
-                const pNum = document.getElementById('or_phone').value;
+                const owners = getOwnersList('dweller');
+                if (owners.length === 0 || !owners[0].firstName || !owners[0].lastName) {
+                    alert('لطفاً نام و نام خانوادگی مالک را وارد فرمایید.');
+                    return;
+                }
+                const purchaseDate = getPickerDateString('date_picker_or_dweller');
+                if (!purchaseDate) {
+                    alert('لطفاً تاریخ خرید واحد را به‌طور کامل (سال، ماه، روز) وارد فرمایید.');
+                    return;
+                }
 
-                payload.firstName = fName;
-                payload.lastName = lName;
-                payload.phone = pNum;
-                // Explicitly map resident owner name and phone to landlord columns as well
-                payload.landlordName = fName + " " + lName;
-                payload.landlordPhone = pNum;
+                payload.owners = owners;
+                payload.firstName = owners[0].firstName;
+                payload.lastName = owners[0].lastName;
+                payload.landlordName = owners.map(o => `${o.firstName} ${o.lastName}`).join('، ');
+                
+                const phone = document.getElementById('or_dweller_phone').value;
+                payload.phone = phone;
+                payload.landlordPhone = phone;
+                payload.ownershipType = document.getElementById('or_dweller_ownership').value;
+                payload.occupantsCount = document.getElementById('or_dweller_occupants').value;
+                payload.contractDate = purchaseDate;
+                payload.purchaseDate = purchaseDate;
+                payload.unitStatus = 'سکونت مالک';
+                payload.dwellerType = 'مالک';
 
-                payload.ownershipType = document.getElementById('or_ownership').value;
-                payload.occupantsCount = document.getElementById('or_occupants').value;
-                payload.contractDate = document.getElementById('or_date').value;
-                fileInput = document.getElementById('or_file');
-            } else if (role === 'tenant') {
-                payload.firstName = document.getElementById('tn_firstName').value;
-                payload.lastName = document.getElementById('tn_lastName').value;
-                payload.phone = document.getElementById('tn_phone').value;
-                payload.occupantsCount = document.getElementById('tn_occupants').value;
-                payload.contractDate = document.getElementById('tn_startDate').value;
-                payload.leaseEndDate = document.getElementById('tn_endDate').value;
-                payload.landlordName = document.getElementById('tn_landlordName').value;
-                payload.landlordPhone = document.getElementById('tn_landlordPhone').value;
-                fileInput = document.getElementById('tn_file');
-            } else if (role === 'owner_non_resident') {
-                const fName = document.getElementById('onr_firstName').value;
-                const lName = document.getElementById('onr_lastName').value;
-                const pNum = document.getElementById('onr_phone').value;
+                fileInput = document.getElementById('or_dweller_file');
 
-                payload.firstName = fName;
-                payload.lastName = lName;
-                payload.phone = pNum;
-                // Explicitly map non-resident owner name to landlord column
-                payload.landlordName = fName + " " + lName;
-                payload.landlordPhone = pNum;
+            } else if (role === 'owner_empty') {
+                const owners = getOwnersList('empty');
+                if (owners.length === 0 || !owners[0].firstName || !owners[0].lastName) {
+                    alert('لطفاً نام و نام خانوادگی مالک را وارد فرمایید.');
+                    return;
+                }
+                const purchaseDate = getPickerDateString('date_picker_or_empty');
+                if (!purchaseDate) {
+                    alert('لطفاً تاریخ خرید واحد را به‌طور کامل (سال، ماه، روز) وارد فرمایید.');
+                    return;
+                }
 
-                payload.ownershipType = document.getElementById('onr_ownership').value;
-                payload.contractDate = document.getElementById('onr_date').value;
-                payload.unitStatus = document.getElementById('onr_status').value;
-                payload.tenantName = document.getElementById('onr_tenantName').value;
-                payload.tenantPhone = document.getElementById('onr_tenantPhone').value;
+                payload.owners = owners;
+                payload.firstName = owners[0].firstName;
+                payload.lastName = owners[0].lastName;
+                payload.landlordName = owners.map(o => `${o.firstName} ${o.lastName}`).join('، ');
+                
+                const phone = document.getElementById('or_empty_phone').value;
+                payload.phone = phone;
+                payload.landlordPhone = phone;
+                payload.ownershipType = document.getElementById('or_empty_ownership').value;
+                payload.contractDate = purchaseDate;
+                payload.purchaseDate = purchaseDate;
+                payload.occupantsCount = 0;
+                payload.unitStatus = 'واحد خالی است';
+                payload.dwellerType = 'خالی';
+
+                fileInput = document.getElementById('or_empty_file');
+
+            } else if (role === 'owner_rented') {
+                const owners = getOwnersList('rented');
+                if (owners.length === 0 || !owners[0].firstName || !owners[0].lastName) {
+                    alert('لطفاً مشخصات مالک واحد (موجر) را وارد فرمایید.');
+                    return;
+                }
+                const purchaseDate = getPickerDateString('date_picker_rn_owner');
+                const leaseStart = getPickerDateString('date_picker_rn_start');
+                const leaseEnd = getPickerDateString('date_picker_rn_end');
+
+                if (!purchaseDate) {
+                    alert('لطفاً تاریخ خرید واحد را به‌طور کامل وارد فرمایید.');
+                    return;
+                }
+                if (!leaseStart) {
+                    alert('لطفاً تاریخ شروع قرارداد اجاره را وارد فرمایید.');
+                    return;
+                }
+                if (!leaseEnd) {
+                    alert('لطفاً تاریخ پایان قرارداد اجاره را وارد فرمایید.');
+                    return;
+                }
+
+                payload.owners = owners;
+                payload.landlordName = owners.map(o => `${o.firstName} ${o.lastName}`).join('، ');
+                
+                const ownerPhone = document.getElementById('rn_owner_phone').value;
+                payload.landlordPhone = ownerPhone;
+                payload.ownerPhone = ownerPhone;
+                payload.ownershipType = document.getElementById('rn_owner_ownership').value;
+                payload.purchaseDate = purchaseDate;
+
+                // Tenant details
+                const tFName = document.getElementById('rn_tenant_fname').value;
+                const tLName = document.getElementById('rn_tenant_lname').value;
+                const tPhone = document.getElementById('rn_tenant_phone').value;
+
+                payload.firstName = tFName;
+                payload.lastName = tLName;
+                payload.tenantName = `${tFName} ${tLName}`;
+                payload.phone = tPhone;
+                payload.tenantPhone = tPhone;
+                payload.occupantsCount = document.getElementById('rn_tenant_occupants').value;
+                payload.contractDate = leaseStart;
+                payload.leaseStartDate = leaseStart;
+                payload.leaseEndDate = leaseEnd;
+                payload.unitStatus = 'واحد اجاره داده شده است';
+                payload.rentalState = 'yes';
+                payload.dwellerType = 'مستاجر';
+
+                fileInput = document.getElementById('rn_lease_file');
             }
 
-            // Handle File conversion to Base64 if uploaded
+            // File verification
+            if (fileInput && fileInput.hasAttribute('required') && (!fileInput.files || fileInput.files.length === 0)) {
+                alert('لطفاً مدرک و مستند مربوطه را بارگذاری نمایید.');
+                fileInput.focus();
+                return;
+            }
+
+            // File conversion to Base64
             if (fileInput && fileInput.files && fileInput.files[0]) {
                 const file = fileInput.files[0];
                 const reader = new FileReader();
@@ -1096,7 +2028,6 @@
                 });
                 const result = await response.json();
                 if (result.status === 'success') {
-                    // Transition to Google Form success screen
                     document.getElementById('surveyForm').classList.add('d-none');
                     document.getElementById('successCard').classList.remove('d-none');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1104,7 +2035,7 @@
                     alert('خطا در ثبت اطلاعات: ' + (result.message || 'پاسخ نامشخص از سرور'));
                 }
             } catch (err) {
-                alert('خطا در ارتباط با سرور. لطفاً اتصال اینترنت خود را بررسی کرده و مجدداً تلاش کنید.');
+                alert('خطا در ارتباط با سرور. لطفاً اتصال اینترنت خود را بررسی نموده و مجدداً تلاش فرمایید.');
                 console.error(err);
             } finally {
                 submitBtn.disabled = false;
@@ -1112,6 +2043,11 @@
                 btnSpinner.classList.add('d-none');
             }
         }
+
+        // Initialize components on load
+        window.addEventListener('DOMContentLoaded', () => {
+            initDatePickers();
+        });
     </script>
 </body>
 </html>
