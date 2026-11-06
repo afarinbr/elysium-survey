@@ -220,21 +220,28 @@
         }
 
         /* Clean select dropdown with embedded arrow on left side */
+        select.gf-select,
         .gf-select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='18' height='18' fill='%235f6368'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: left 12px center;
-            background-size: 18px;
-            padding-left: 36px;
-            padding-right: 14px;
+            appearance: none !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='18' height='18' fill='%235f6368'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") !important;
+            background-repeat: no-repeat !important;
+            background-position: left 12px center !important;
+            background-size: 18px !important;
+            padding-left: 36px !important;
+            padding-right: 14px !important;
             cursor: pointer;
         }
 
+        select.gf-select:focus,
         .gf-select:focus {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='18' height='18' fill='%23673ab7'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='18' height='18' fill='%23673ab7'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") !important;
+        }
+
+        select.gf-select::-ms-expand,
+        .gf-select::-ms-expand {
+            display: none !important;
         }
 
         .gf-input:hover,
@@ -267,13 +274,17 @@
             cursor: pointer;
         }
 
-        /* Remove incremental increase spinners completely from unitSize and all date inputs */
+        /* Remove incremental increase spinners completely from unitSize, all date inputs, and parking/storage */
         #unitSize::-webkit-inner-spin-button,
         #unitSize::-webkit-outer-spin-button,
         .gf-date-input::-webkit-inner-spin-button,
         .gf-date-input::-webkit-outer-spin-button,
         .gf-date-wrapper input::-webkit-inner-spin-button,
-        .gf-date-wrapper input::-webkit-outer-spin-button {
+        .gf-date-wrapper input::-webkit-outer-spin-button,
+        .parking-number::-webkit-inner-spin-button,
+        .parking-number::-webkit-outer-spin-button,
+        .storage-number::-webkit-inner-spin-button,
+        .storage-number::-webkit-outer-spin-button {
             -webkit-appearance: none !important;
             margin: 0 !important;
             display: none !important;
@@ -281,7 +292,9 @@
 
         #unitSize,
         .gf-date-input,
-        .gf-date-wrapper input {
+        .gf-date-wrapper input,
+        .parking-number,
+        .storage-number {
             -moz-appearance: textfield !important;
         }
 
@@ -373,6 +386,10 @@
             margin-top: 4px;
         }
 
+        .gf-date-wrapper .row {
+            direction: rtl !important;
+        }
+
         .gf-date-col-inner {
             position: relative;
             width: 100%;
@@ -384,12 +401,13 @@
             background-color: #ffffff;
             border: 1px solid var(--gf-border);
             border-radius: 4px;
-            padding: 10px 10px;
+            padding: 10px 32px;
             font-size: 14.5px;
             font-family: inherit;
             font-weight: 500;
             color: var(--gf-text-dark);
             text-align: center;
+            cursor: pointer;
             transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s, background-color 0.2s;
         }
 
@@ -398,13 +416,15 @@
             box-shadow: 0 0 0 2px rgba(103, 58, 183, 0.22);
             background-color: #ffffff;
             outline: none;
+            cursor: text;
         }
 
         .gf-date-input.has-arrow {
             padding-left: 32px;
+            padding-right: 32px;
         }
 
-        /* Dropdown arrow inside the field */
+        /* Dropdown arrow neatly embedded inside the field on the left */
         .gf-date-arrow {
             position: absolute;
             left: 8px;
@@ -438,29 +458,14 @@
             color: var(--gf-primary);
         }
 
-        /* Remove incremental increase spinners completely from date inputs */
-        .gf-date-input::-webkit-inner-spin-button,
-        .gf-date-input::-webkit-outer-spin-button,
-        .gf-date-wrapper input::-webkit-inner-spin-button,
-        .gf-date-wrapper input::-webkit-outer-spin-button {
-            -webkit-appearance: none !important;
-            margin: 0 !important;
-            display: none !important;
-        }
-
-        .gf-date-input,
-        .gf-date-wrapper input {
-            -moz-appearance: textfield !important;
-        }
-
         .gf-dropdown-menu {
             position: absolute;
             top: calc(100% + 4px);
             right: 0;
             left: 0;
             width: 100%;
-            min-width: 120px;
-            max-height: 210px;
+            min-width: 100%;
+            max-height: 215px;
             overflow-y: auto;
             background-color: #ffffff;
             border: 1px solid var(--gf-border);
@@ -471,7 +476,7 @@
             z-index: 1050;
             display: none;
             direction: rtl;
-            text-align: right;
+            text-align: center;
         }
 
         .gf-dropdown-menu.show {
@@ -481,13 +486,14 @@
         .gf-dropdown-item {
             display: block;
             width: 100%;
-            padding: 7px 10px;
+            padding: 8px 10px;
             clear: both;
-            font-size: 13px;
+            font-size: 13.5px;
+            font-weight: 500;
             color: var(--gf-text-dark);
             text-decoration: none;
             cursor: pointer;
-            transition: background-color 0.15s;
+            transition: background-color 0.15s, color 0.15s;
             text-align: center;
         }
 
@@ -806,7 +812,7 @@
                         </label>
                         <!-- Floor: Numeric spinner only, minimum 0, positive numbers only -->
                         <input type="number" class="gf-input" id="floor" placeholder="مثال: ۲" min="0" step="1" required oninput="if(this.value < 0) this.value = 0;" onkeydown="if(event.key === '-' || event.key === 'e') event.preventDefault();">
-                        <div class="gf-help">فقط عدد (۰ برای همکف، ۱، ۲، ...)</div>
+                        <div class="gf-help">فقط عدد</div>
                     </div>
                     <div class="col-md-6 gf-field-group">
                         <label class="gf-label" for="unitNumber">
@@ -823,7 +829,7 @@
                     <span>مشخصات اختصاصی واحد</span>
                 </div>
                 <div class="gf-card-section-desc">
-                    متراژ و تعداد خواب واحد طبق اسناد معتبر
+                    متراژ و تعداد خواب واحد طبق سند
                 </div>
 
                 <div class="row g-3">
@@ -837,7 +843,7 @@
                         <label class="gf-label" for="unitSize">
                             متراژ واحد (مترمربع) <span class="req">*</span>
                         </label>
-                        <input type="text" inputmode="numeric" class="gf-input" id="unitSize" placeholder="فقط عدد (مثال: 125)" required oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                        <input type="text" inputmode="numeric" class="gf-input" id="unitSize" placeholder="فقط عدد (مثال: 125)" required oninput="this.value = toEnglishDigits(this.value).replace(/[^0-9]/g, '');">
                     </div>
                 </div>
             </div>
@@ -848,7 +854,7 @@
                     <span>اطلاعات پارکینگ و انبار</span>
                 </div>
                 <div class="gf-card-section-desc">
-                    شماره‌های اختصاص‌یافته در سند یا صورت‌جلسه تحویل به همراه طبقه استقرار
+                    شماره‌های اختصاص‌یافته در سند به همراه طبقه
                 </div>
 
                 <!-- بخش پارکینگ -->
@@ -865,7 +871,7 @@
                                     <input type="number" class="gf-input parking-number" min="1" placeholder="مثال: 14">
                                 </div>
                                 <div class="col-4">
-                                    <label class="gf-sublabel">طبقه / سطح</label>
+                                    <label class="gf-sublabel">طبقه</label>
                                     <select class="gf-select parking-level">
                                         <option value="P1">P1 (طبقه ۱-)</option>
                                         <option value="P2">P2 (طبقه ۲-)</option>
@@ -905,7 +911,7 @@
                                     <input type="number" class="gf-input storage-number" min="1" placeholder="مثال: 8">
                                 </div>
                                 <div class="col-4">
-                                    <label class="gf-sublabel">طبقه / سطح</label>
+                                    <label class="gf-sublabel">طبقه</label>
                                     <select class="gf-select storage-level">
                                         <option value="P1">P1 (طبقه ۱-)</option>
                                         <option value="P2">P2 (طبقه ۲-)</option>
@@ -936,13 +942,9 @@
                 <div class="gf-card-section-title">
                     <span>نقش و وضعیت سکونت در مجتمع</span>
                 </div>
-                <div class="gf-card-section-desc">
-                    وضعیت بهره‌برداری فعلی شما از این واحد چیست؟
-                </div>
-
                 <div class="gf-field-group">
                     <label class="gf-label" for="role">
-                        نقش و وضعیت سکونت در مجتمع الیزیوم <span class="req">*</span>
+                        وضعیت بهره‌برداری فعلی شما از این واحد چیست؟ <span class="req">*</span>
                     </label>
                     <select class="gf-select" id="role" required onchange="handleRoleChange()">
                         <option value="owner_dweller" selected>مالک هستم و در واحد سکونت دارم</option>
@@ -1081,8 +1083,11 @@
                     <!-- مدرک مالکیت -->
                     <div class="gf-field-group">
                         <label class="gf-label" for="or_dweller_file">
-                            مستند مالکیت (تصویر صفحه اول سند یا مدرک واگذاری) <span class="req">*</span>
+                            مستند مالکیت (تصویر صفحه اول سند) <span class="req">*</span>
                         </label>
+                        <div class="gf-help">
+                            🔒 امنیت اسناد کاملاً تضمین شده است. صرفاً تصویر صفحه‌ای که نام مالک و واحد در آن درج شده کفایت می‌کند.
+                        </div>
                         <div class="gf-file-wrapper">
                             <label for="or_dweller_file" class="gf-file-btn">
                                 <svg viewBox="0 0 24 24">
@@ -1092,9 +1097,6 @@
                             </label>
                             <span class="gf-file-status" id="or_dweller_file_status">فایلی انتخاب نشده است</span>
                             <input type="file" class="d-none or-dweller-field" id="or_dweller_file" accept=".pdf,image/*" onchange="updateFileName(this, 'or_dweller_file_status')">
-                        </div>
-                        <div class="gf-help">
-                            🔒 امنیت اسناد کاملاً تضمین شده است. صرفاً تصویر صفحه‌ای که نام مالک و واحد در آن درج شده کفایت می‌کند.
                         </div>
                     </div>
                 </div>
@@ -1217,6 +1219,9 @@
                         <label class="gf-label" for="or_empty_file">
                             مستند مالکیت (تصویر صفحه اول سند یا مدرک واگذاری) <span class="req">*</span>
                         </label>
+                        <div class="gf-help">
+                            🔒 امنیت اسناد کاملاً تضمین شده است. صرفاً تصویر صفحه‌ای که نام مالک و واحد در آن درج شده کفایت می‌کند.
+                        </div>
                         <div class="gf-file-wrapper">
                             <label for="or_empty_file" class="gf-file-btn">
                                 <svg viewBox="0 0 24 24">
@@ -1226,9 +1231,6 @@
                             </label>
                             <span class="gf-file-status" id="or_empty_file_status">فایلی انتخاب نشده است</span>
                             <input type="file" class="d-none or-empty-field" id="or_empty_file" accept=".pdf,image/*" onchange="updateFileName(this, 'or_empty_file_status')">
-                        </div>
-                        <div class="gf-help">
-                            🔒 امنیت اسناد کاملاً تضمین شده است. صرفاً تصویر صفحه‌ای که نام مالک و واحد در آن درج شده کفایت می‌کند.
                         </div>
                     </div>
                 </div>
@@ -1241,9 +1243,9 @@
                     
                     <!-- 5.C-1: بخش اطلاعات مالک (موجر) -->
                     <div class="gf-card">
-                        <div class="gf-section-badge">بخش ۲ از ۳ • مشخصات مالک (موجر)</div>
+                        <div class="gf-section-badge">بخش ۲ از ۳ • مشخصات مالک</div>
                         <div class="gf-card-section-title">
-                            <span>اطلاعات مالک واحد (موجر)</span>
+                            <span>اطلاعات مالک واحد</span>
                         </div>
                         <div class="gf-card-section-desc">
                             مشخصات هویتی مالک(ین) و تاریخ خرید واحد
@@ -1534,6 +1536,14 @@
     <script>
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxaXOljirQkJnOzMWATQZGxd388m3zuAPo0XFDvACKOan94rvoGj8SOf7m9HZkHs2jF/exec";
 
+        // Convert Persian/Arabic digits to English digits
+        function toEnglishDigits(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/[\u0660-\u0669]/g, c => String(c.charCodeAt(0) - 0x0660))
+                .replace(/[\u06F0-\u06F9]/g, c => String(c.charCodeAt(0) - 0x06F0));
+        }
+
         // Persian Month Definitions
         const JALALI_MONTHS = [
             { num: "01", name: "فروردین" },
@@ -1590,13 +1600,14 @@
                 // Restrict Year input to digits only
                 if (yearInput) {
                     yearInput.addEventListener('input', function() {
-                        this.value = this.value.replace(/[^0-9]/g, '');
+                        this.value = toEnglishDigits(this.value).replace(/[^0-9]/g, '');
                     });
                 }
 
                 // Auto-convert Persian month name typed into numeric month
                 if (monthInput) {
                     monthInput.addEventListener('input', function() {
+                        this.value = toEnglishDigits(this.value);
                         if (/^\d+$/.test(this.value.trim())) {
                             let n = parseInt(this.value.trim(), 10);
                             if (n > 12) this.value = '12';
@@ -1622,7 +1633,7 @@
                 // Restrict Day input between 1 and 31
                 if (dayInput) {
                     dayInput.addEventListener('input', function() {
-                        this.value = this.value.replace(/[^0-9]/g, '');
+                        this.value = toEnglishDigits(this.value).replace(/[^0-9]/g, '');
                         let d = parseInt(this.value, 10);
                         if (d > 31) this.value = '31';
                         if (d < 1 && this.value !== '') this.value = '1';
@@ -1663,9 +1674,9 @@
         function getPickerDateString(wrapperId) {
             const wrapper = document.getElementById(wrapperId);
             if (!wrapper) return '';
-            const y = parseInt(wrapper.querySelector('.j-year')?.value.trim(), 10);
-            const m = parseInt(wrapper.querySelector('.j-month')?.value.trim(), 10);
-            const d = parseInt(wrapper.querySelector('.j-day')?.value.trim(), 10);
+            const y = parseInt(toEnglishDigits(wrapper.querySelector('.j-year')?.value.trim()), 10);
+            const m = parseInt(toEnglishDigits(wrapper.querySelector('.j-month')?.value.trim()), 10);
+            const d = parseInt(toEnglishDigits(wrapper.querySelector('.j-day')?.value.trim()), 10);
             if (!y || !m || !d) return '';
             if (y < 1350 || y > 1415) return '';
             if (m < 1 || m > 12) return '';
@@ -1673,44 +1684,78 @@
             return `${y}/${String(m).padStart(2, '0')}/${String(d).padStart(2, '0')}`;
         }
 
-        // Global dropdown toggle handling (Inner embedded arrow, auto-scrolls to current/selected year)
+        function openDateDropdown(menu, colInner) {
+            menu.classList.add('show');
+            colInner.classList.add('active-dropdown');
+
+            // Auto-scroll Year menu to current year (1404-1405) or selected year for quick accessibility
+            const yearInput = colInner.querySelector('.j-year');
+            if (yearInput) {
+                const targetYear = parseInt(toEnglishDigits(yearInput.value), 10) || 1404;
+                const targetItem = menu.querySelector(`[data-val="${targetYear}"]`);
+                if (targetItem) {
+                    setTimeout(() => targetItem.scrollIntoView({ block: 'center' }), 10);
+                }
+            }
+
+            // Auto-scroll Month menu to selected month
+            const monthInput = colInner.querySelector('.j-month');
+            if (monthInput && monthInput.value) {
+                const num = parseInt(toEnglishDigits(monthInput.value), 10);
+                if (num >= 1 && num <= 12) {
+                    const targetVal = String(num).padStart(2, '0');
+                    const targetItem = menu.querySelector(`[data-val="${targetVal}"]`);
+                    if (targetItem) {
+                        setTimeout(() => targetItem.scrollIntoView({ block: 'center' }), 10);
+                    }
+                }
+            }
+
+            // Auto-scroll Day menu to selected day
+            const dayInput = colInner.querySelector('.j-day');
+            if (dayInput && dayInput.value) {
+                const num = parseInt(toEnglishDigits(dayInput.value), 10);
+                if (num >= 1 && num <= 31) {
+                    const targetVal = String(num).padStart(2, '0');
+                    const targetItem = menu.querySelector(`[data-val="${targetVal}"]`);
+                    if (targetItem) {
+                        setTimeout(() => targetItem.scrollIntoView({ block: 'center' }), 10);
+                    }
+                }
+            }
+        }
+
+        // Global dropdown toggle handling (Inner embedded arrow and input click, auto-scrolls to current/selected year)
         document.addEventListener('click', function(e) {
             const toggleBtn = e.target.closest('.gf-dd-toggle');
-            if (toggleBtn) {
-                e.preventDefault();
-                e.stopPropagation();
-                const colInner = toggleBtn.closest('.gf-date-col-inner');
+            const dateInput = e.target.closest('.gf-date-input');
+
+            if (toggleBtn || dateInput) {
+                const colInner = (toggleBtn || dateInput).closest('.gf-date-col-inner');
                 if (!colInner) return;
                 const menu = colInner.querySelector('.gf-dropdown-menu');
                 if (!menu) return;
                 const isOpen = menu.classList.contains('show');
+
                 // Close all other open dropdowns
                 document.querySelectorAll('.gf-dropdown-menu.show').forEach(m => {
-                    m.classList.remove('show');
-                    m.closest('.gf-date-col-inner')?.classList.remove('active-dropdown');
+                    if (m !== menu) {
+                        m.classList.remove('show');
+                        m.closest('.gf-date-col-inner')?.classList.remove('active-dropdown');
+                    }
                 });
-                if (!isOpen) {
-                    menu.classList.add('show');
-                    colInner.classList.add('active-dropdown');
 
-                    // Auto-scroll Year menu to current year (1403-1405) or selected year for quick accessibility
-                    const yearInput = colInner.querySelector('.j-year');
-                    if (yearInput) {
-                        const targetYear = parseInt(yearInput.value, 10) || 1403;
-                        const targetItem = menu.querySelector(`[data-val="${targetYear}"]`);
-                        if (targetItem) {
-                            setTimeout(() => targetItem.scrollIntoView({ block: 'center' }), 10);
-                        }
+                if (toggleBtn) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (isOpen) {
+                        menu.classList.remove('show');
+                        colInner.classList.remove('active-dropdown');
+                    } else {
+                        openDateDropdown(menu, colInner);
                     }
-
-                    // Auto-scroll Day menu to selected day
-                    const dayInput = colInner.querySelector('.j-day');
-                    if (dayInput && dayInput.value) {
-                        const targetItem = menu.querySelector(`[data-val="${String(parseInt(dayInput.value, 10)).padStart(2, '0')}"]`);
-                        if (targetItem) {
-                            setTimeout(() => targetItem.scrollIntoView({ block: 'center' }), 10);
-                        }
-                    }
+                } else if (dateInput && !isOpen) {
+                    openDateDropdown(menu, colInner);
                 }
                 return;
             }
@@ -1749,6 +1794,14 @@
             if (!input || input._persianValidatorAttached) return;
             input._persianValidatorAttached = true;
 
+            // Block English/Latin characters directly on beforeinput
+            input.addEventListener('beforeinput', function(e) {
+                if (e.data && /[a-zA-Z]/.test(e.data)) {
+                    e.preventDefault();
+                    showPersianHint(this);
+                }
+            });
+
             input.addEventListener('input', function() {
                 const original = this.value;
                 // Allow only Persian letters, spaces, and ZWNJ (\u200C); strip Latin letters, numbers, and symbols
@@ -1761,7 +1814,7 @@
         }
 
         function showPersianHint(input) {
-            let parent = input.closest('.col-6') || input.parentElement;
+            let parent = input.closest('.col-6') || input.closest('.gf-field-group') || input.parentElement;
             let hint = parent.querySelector('.persian-name-hint');
             if (!hint) {
                 hint = document.createElement('div');
@@ -1839,9 +1892,9 @@
                         <input type="number" class="gf-input parking-number" min="1" placeholder="مثال: 15">
                     </div>
                     <div class="col-4">
-                        <label class="gf-sublabel">طبقه / سطح</label>
+                        <label class="gf-sublabel">طبقه</label>
                         <select class="gf-select parking-level">
-                            <option value="P1">P1 (طبقه ۱-)</option>
+                            <option value="P1" selected>P1 (طبقه ۱-)</option>
                             <option value="P2">P2 (طبقه ۲-)</option>
                             <option value="P3">P3 (طبقه ۳-)</option>
                         </select>
@@ -1868,9 +1921,9 @@
                         <input type="number" class="gf-input storage-number" min="1" placeholder="مثال: 9">
                     </div>
                     <div class="col-4">
-                        <label class="gf-sublabel">طبقه / سطح</label>
+                        <label class="gf-sublabel">طبقه</label>
                         <select class="gf-select storage-level">
-                            <option value="P1">P1 (طبقه ۱-)</option>
+                            <option value="P1" selected>P1 (طبقه ۱-)</option>
                             <option value="P2">P2 (طبقه ۲-)</option>
                             <option value="P3">P3 (طبقه ۳-)</option>
                             <option value="همکف">همکف</option>
@@ -2068,7 +2121,7 @@
             }
 
             // Validate Unit Size is positive number > 0
-            const unitSizeVal = parseInt(document.getElementById('unitSize').value, 10);
+            const unitSizeVal = parseInt(toEnglishDigits(document.getElementById('unitSize').value), 10);
             if (!unitSizeVal || unitSizeVal <= 0) {
                 alert('لطفاً متراژ واحد را به‌صورت یک عدد معتبر و بزرگتر از صفر وارد فرمایید.');
                 document.getElementById('unitSize').focus();
